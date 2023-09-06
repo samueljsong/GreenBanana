@@ -5,6 +5,7 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
@@ -13,14 +14,20 @@ const mysql = require('mysql');
 const PORT = process.env.PORT || 4000;
 const app = express();
 
-// MiddleWare
-app.use(express.json());
-
 
 // Connecting to MongoDB
 mongoose.connect(process.env.MONGO_URL, {});
 mongoose.connection.once('open', () => {
     console.log('MongoDB: connected...')
+})
+
+// Creating Sessions 
+let mongoStore = MongoStore.create({
+    mongoUrl: process.env.MONGO_URL,
+    crypto: {
+        secret: process.env.MONGO_SESSION_SECRET
+    },
+    collectionName: "sessions"
 })
 
 // Connecting to MySQL
@@ -35,9 +42,24 @@ let con = mysql.createConnection({
 })
 
 con.connect( (err) => {
+    if(err) throw err;
     console.log('MySQL: connected...')
 })
 
+// MiddleWare
+app.set('view engine', 'ejs');
+app.use(express.json());
+app.use(express.urlencoded({extended: false}))
+app.use(session({
+    secret: process.env.NODE_SECRET_SESSION,
+    store: mongoStore,
+    saveUninitialized: false,
+    resave: true,
+    cookie: {
+        maxAge: 100, //temporary cookie expiration time... fix later
+        secure: false
+    }
+}))
 
 app.listen(PORT, () => {
     console.log(`Server: running on port... ${PORT}`);
