@@ -58,7 +58,6 @@ app.use(session({
 }))
 
 
-
 app.post('/createUser', async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
@@ -75,6 +74,6 @@ app.post('/createUser', async (req, res) => {
     }
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`Server: running on port... ${PORT}`);
 })
