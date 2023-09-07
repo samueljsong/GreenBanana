@@ -1,4 +1,4 @@
-const database = require('../server/databaseConnection')
+const database = require('../databaseConnection')
 
 async function createUser(postData) {
     let createUserSQL = `
