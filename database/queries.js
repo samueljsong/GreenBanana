@@ -2,7 +2,7 @@ const database = require('../databaseConnection')
 
 async function createUser(postData) {
     let createUserSQL = `
-        INSERT INTO user 
+        INSERT INTO user
         (username, email, password)
         VALUES
         (:user, :email, :passwordHash);
