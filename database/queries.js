@@ -5,17 +5,13 @@ async function createUser(postData) {
         INSERT INTO user
         (username, email, password)
         VALUES
-        (:user, :email, :passwordHash);
+        (?, ?, ?);
     `;
 
-    let params = {
-        user: postData.user,
-        email: postData.email,
-        passwordHash: postData.hashedPassword
-    }
+    let param = [postData.user, postData.email, postData.hashedPassword]
 
     try {
-        const result = await database.query(createUserSQL, params);
+        const result = await database.query(createUserSQL, param);
 
         return true;
     }
