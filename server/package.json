@@ -20,6 +20,6 @@
     "express-session": "^1.17.3",
     "mongoose": "^7.5.0",
     "mysql": "^2.18.1",
-    "mysql2-promise": "^0.1.4"
+    "mysql2": "^3.6.0"
   }
 }

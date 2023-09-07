@@ -10,10 +10,13 @@ const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 
+//DB
+const db_query = require('../database/queries')
+
 // Generic Constants
 const PORT = process.env.PORT || 4000;
 const app = express();
-
+const expireTime = 5 * 60 * 1000; //expires after 5min  (hours * minutes * seconds * millis)
 
 // Connecting to MongoDB
 mongoose.connect(process.env.MONGO_URL, {});
@@ -30,21 +33,6 @@ let mongoStore = MongoStore.create({
     collectionName: "sessions"
 })
 
-// Connecting to MySQL
-let con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASS,
-    database: process.env.MYSQL_NAME,
-    multipleStatements: false,
-    namedPlaceholders: true
-})
-
-con.connect( (err) => {
-    if(err) throw err;
-    console.log('MySQL: connected...')
-})
 
 // MiddleWare
 app.set('view engine', 'ejs');
@@ -56,10 +44,28 @@ app.use(session({
     saveUninitialized: false,
     resave: true,
     cookie: {
-        maxAge: 100, //temporary cookie expiration time... fix later
+        maxAge: expireTime,
         secure: false
     }
 }))
+
+
+
+app.post('/createUser', async (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+    let email = req.body.email;
+
+    let hashedPassword = bcrypt.hashSync(password, 12);
+
+    let success = await db_query.createUser({user: username, email: email, hashedPassword: hashedPassword});
+
+    if(success){
+        console.log("User has been created");
+    } else {
+        console.log("ERROR OCCURED")
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Server: running on port... ${PORT}`);
