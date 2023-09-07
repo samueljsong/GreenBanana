@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
+const cloudinary = require('cloudinary').v2;
 
 // Generic Constants
 const PORT = process.env.PORT || 4000;
@@ -31,20 +32,28 @@ let mongoStore = MongoStore.create({
 })
 
 // Connecting to MySQL
-let con = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASS,
-    database: process.env.MYSQL_NAME,
-    multipleStatements: false,
-    namedPlaceholders: true
-})
+// let con = mysql.createConnection({
+//     host: process.env.MYSQL_HOST,
+//     port: process.env.MYSQL_PORT,
+//     user: process.env.MYSQL_USER,
+//     password: process.env.MYSQL_PASS,
+//     database: process.env.MYSQL_NAME,
+//     multipleStatements: false,
+//     namedPlaceholders: true
+// })
 
-con.connect( (err) => {
-    if(err) throw err;
-    console.log('MySQL: connected...')
-})
+// con.connect( (err) => {
+//     if(err) throw err;
+//     console.log('MySQL: connected...')
+// })
+
+// Connect to Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    secure: true,
+    api_key: process.env.CLOUDINARY_KEY, 
+    api_secret: process.env.CLOUDINARY_SECRET
+});
 
 // MiddleWare
 app.set('view engine', 'ejs');
