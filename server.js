@@ -62,6 +62,7 @@ app.use(session({
 }));
 
 
+// Routes
 app.get('/', (req, res) => {
     res.render('index');
 })
@@ -75,6 +76,7 @@ app.get('/login', (req, res) => {
 })
 
 
+// API
 app.post('/createUser', async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
@@ -98,6 +100,7 @@ app.post('/createUser', async (req, res) => {
         
     }
 })
+
 
 app.listen(PORT, async () => {
     console.log(`Server: running on port... ${PORT}`);
