@@ -1,8 +1,15 @@
+#main {
+    display: grid;
+    grid-template-rows: 100px;
+}
+
 h1 {
     text-align: center;
+    grid-row-start: 2;
 }
 
 #mainbtns {
+    grid-row-start: 3;
     display: grid;
     grid-template-columns: auto 100px 50px 100px 50px 100px auto;
 }
