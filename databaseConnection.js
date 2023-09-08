@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mysql = require('mysql2/promise');
+
 // Connecting to MySQL
 let dbConfig = {
     host: process.env.MYSQL_HOST,   
