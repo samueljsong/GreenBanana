@@ -4,15 +4,28 @@
 <%- include("templates/headerEnd") %> 
 
 <div class="login-container">
-    <h1 id="login-title">Login</h1>
-    <form class="login-form" action="/loginUser" method="post">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email">
-        <label for="password">Password</label>
-        <input type="text" name="password" id="password">
-        <button>Login</button>
-    </form>
-    <button id="signup">Signup</button>
+    <div class="login-logo-container">
+        <img class="logo" src="/assets/logo.png" alt="">
+        <div class="title-section">
+            <h1 class="green">Green</h1>
+            <h1 class="banana">Banana</h1>
+        </div>
+    </div>
+
+    <span class="vertical-line"></span>
+
+    <div class="login-form-container">
+        <form class="login-form" action="/loginUser" method="post">
+            <input class="login-input" type="text" name="email" id="email" placeholder="Email">
+            <input class="login-input" type="password" name="password" id="password" placeholder="Password">
+            <button class="login-button">Connect</button>
+        </form>
+        <div class="login-signup">
+            <p>Start sharing your creations</p>
+            <p>-</p>
+            <a class="signup" href="/signup">Signup</a>
+        </div>
+    </div>
 </div>
     
 <%- include("templates/footer") %> 
