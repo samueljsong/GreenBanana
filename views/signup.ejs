@@ -1,0 +1,14 @@
+<%- include("templates/headerStart") %> 
+<%- include("templates/headerEnd") %> 
+    <h1>Signup</h1>
+    <form action="/createUser" method="post">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email">
+        <label for="password">Password</label>
+        <input type="text" name="password" id="password">
+        <button>Create Account</button>
+    </form>
+    
+<%- include("templates/footer") %> 

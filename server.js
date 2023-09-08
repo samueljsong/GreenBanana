@@ -1,5 +1,6 @@
 "use strict";
 
+
 // Node Modules
 require('dotenv').config();
 const express = require('express');
@@ -9,6 +10,7 @@ const MongoStore = require('connect-mongo');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const cloudinary = require('cloudinary').v2;
+const ejs = require('ejs');
 
 //DB
 const db_query = require('./database/queries')
@@ -17,6 +19,7 @@ const db_query = require('./database/queries')
 const PORT = process.env.PORT || 4000;
 const app = express();
 const expireTime = 5 * 60 * 1000; //expires after 5min  (hours * minutes * seconds * millis)
+const saltRounds = 12;
 
 // Connecting to MongoDB
 mongoose.connect(process.env.MONGO_URL, {});
@@ -45,6 +48,7 @@ cloudinary.config({
 // MiddleWare
 app.set('view engine', 'ejs');
 app.use(express.json());
+app.use(express.static("public"));
 app.use(express.urlencoded({extended: false}))
 app.use(session({
     secret: process.env.NODE_SECRET_SESSION,
@@ -55,7 +59,20 @@ app.use(session({
         maxAge: expireTime,
         secure: false
     }
-}))
+}));
+
+
+app.get('/', (req, res) => {
+    res.render('index');
+})
+
+app.get('/signup', (req, res) => {
+    res.render('signup');
+})
+
+app.get('/login', (req, res) => {
+    res.render('login');
+})
 
 
 app.post('/createUser', async (req, res) => {
@@ -63,14 +80,22 @@ app.post('/createUser', async (req, res) => {
     let password = req.body.password;
     let email = req.body.email;
 
-    let hashedPassword = bcrypt.hashSync(password, 12);
+    let hashedPassword = bcrypt.hashSync(password, saltRounds);
 
-    let success = await db_query.createUser({user: username, email: email, hashedPassword: hashedPassword});
+    if(email && username && password){
+        let success = await db_query.createUser({user: username, email: email, hashedPassword: hashedPassword});
 
-    if(success){
-        console.log("User has been created");
-    } else {
-        console.log("ERROR OCCURED")
+        if(success){
+            console.log("User has been created");
+            res.redirect("/");
+        } else {
+            console.log("ERROR OCCURED")
+        }
+    }else{
+        if(!username) console.log("Fillout Username")
+        if(!password) console.log("Fillout Password")
+        if(!email) console.log("Fillout Email")
+        
     }
 })
 
