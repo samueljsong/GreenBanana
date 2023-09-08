@@ -1,9 +1,21 @@
-<div>
-    <a href="/">Home</a>
-    <% if(loggedin == false){ %>
-        <a href="/login">Login</a>
-        <a href="/signup">Signup</a>
-    <% } else{ %>
-        <a href="/profile">My Profile</a>
-    <% } %>
+<link rel="stylesheet" type="text/css" href="/css/navbar.css">
+<div id="navbar">
+    <div id="navmain">
+        <a class="navelem" id="navhome" href="/">Home</a>
+        <a class="navelem" id="navlinks" href="">links</a>
+        <a class="navelem" id="navimages" href="">images</a>
+        <a class="navelem" id="navtext" href="">text</a>
+    </div>
+    
+
+    <div id="navuser">
+        <% if(loggedin == false){ %>
+        <a class="navelem" id="navlogin" href="/login">Login</a>
+        <a class="navelem" id="navsignup" href="/signup">Signup</a>
+        <% } else{ %>
+        <a class="navelem" id="navprofile" href="/profile">My Profile</a>
+        <% } %>
+    </div>
+</div>
+<div id="navbarpad">
 </div>
