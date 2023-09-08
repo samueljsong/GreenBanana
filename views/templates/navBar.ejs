@@ -1,0 +1,9 @@
+<div>
+    <a href="/">Home</a>
+    <% if(loggedin == false){ %>
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+    <% } else{ %>
+        <a href="/profile">My Profile</a>
+    <% } %>
+</div>

@@ -64,7 +64,7 @@ app.use(session({
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', {loggedin: false});
 })
 
 app.get('/signup', (req, res) => {
