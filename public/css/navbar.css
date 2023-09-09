@@ -36,7 +36,7 @@
     background-color: #6ed9a000;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 10px;
 }
 
 #navuser {
@@ -44,17 +44,28 @@
     background-color: #6ed9a000;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 10px;
 }
 
 .navlogo {
     background-color: #6ed9a000;
-    height: 2rem;
-    width: 2rem;
-    align-self: center;
+    height: 40px;
+    width: 40px;
     cursor: pointer;
 }
 
+.navlogo:hover {
+    filter: drop-shadow(0px 0px 5px #6ed9a0);
+}
+
 .navlelem {
+    height: 50px;
     background: transparent;
+    display: flex;
+    align-items: center;
+}
+
+.navlelem:hover {
+    animation: 0.3s underline;
+    animation-fill-mode: forwards;
 }
