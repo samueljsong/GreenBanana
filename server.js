@@ -69,7 +69,6 @@ app.get('/', (req, res) => {
 
 app.get('/signup', (req, res) => {
     let msg = req.query.msg;
-    console.log(msg);
     res.render('signup', {msg: msg});
 })
 

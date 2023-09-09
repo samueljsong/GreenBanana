@@ -241,6 +241,7 @@
         display: flex;
         justify-content: space-between;
         font-size: 1.1rem;
+        margin-top: 1rem;
     }
 
     .login{
@@ -405,6 +406,7 @@
         display: flex;
         justify-content: space-between;
         font-size: 1.3rem;
+        margin-top: 0;
     }
 
     .login{
