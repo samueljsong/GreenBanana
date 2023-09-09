@@ -1,0 +1,5 @@
+background - #2a363f
+highlights - #4a836d
+button - #6ed9a0
+dim light - #5f686f
+text - #ffffff

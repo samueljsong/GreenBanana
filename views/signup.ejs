@@ -1,14 +1,33 @@
 <%- include("templates/headerStart") %> 
+<link rel="stylesheet" href="/css/signup.css">
 <%- include("templates/headerEnd") %> 
-    <h1>Signup</h1>
-    <form action="/createUser" method="post">
-        <label for="username">Username</label>
-        <input id="username" name="username" type="text">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email">
-        <label for="password">Password</label>
-        <input type="text" name="password" id="password">
-        <button>Create Account</button>
-    </form>
+
+<div class="signup-container">
+    <div class="signup-form-container">
+        <h1 class="signup-title">Signup</h1>
+        <form class="signup-form" action="/createUser" method="post">
+            <input class="signup-input" id="username" name="username" type="text" placeholder="Username">
+            <input class="signup-input" type="email" name="email" id="email" placeholder="Email">
+            <input class="signup-input" type="password" name="password" id="password" placeholder="Password">
+            <button class="signup-button">Signup</button>
+        </form>
+        <div class="signup-login">
+            <p>Already have an account?</p>
+            <p>-</p>
+            <a class="login" href="/login">Login</a>
+        </div>
+    </div>
+
+    <span class="vertical-line"></span>
+
+    <div class="signup-logo-container">
+        <img class="logo" src="/assets/logo.png" alt="">
+        <div class="title-section">
+            <h1 class="green">Green</h1>
+            <h1 class="banana">Banana</h1>
+        </div>
+    </div>
+
+</div>
     
 <%- include("templates/footer") %> 
