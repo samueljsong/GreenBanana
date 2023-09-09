@@ -64,7 +64,8 @@ app.use(session({
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('index', {loggedin: false});
+    let loggedin = isValidSession(req)
+    res.render('index', {loggedin: loggedin});
 })
 
 app.get('/signup', (req, res) => {
@@ -79,6 +80,12 @@ app.get('/login', (req, res) => {
 
 
 // Util functions
+
+function isValidSession(req){
+    if(req.session.authenticated) return true;
+    return false
+}
+
 function containsUppercase(str){
     return /[A-Z]/.test(str);
 }
@@ -147,7 +154,6 @@ app.post('/loginUser', async (req, res) => {
 
     if(results){
         if (results.length === 1){
-            console.log( await bcrypt.compare(password, results[0].password))
             if ( bcrypt.compareSync(password, results[0].password)){
                 await req.session.save();
                 req.session.authenticated = true;
