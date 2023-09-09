@@ -5,7 +5,8 @@
     height: 50px;
     /* border-style: solid; */
     /* border-color: #6ed9a00c; */
-    background-color: #2a363f57;
+    background-color: #2a363f20;
+    backdrop-filter: blur(5px);
     box-shadow: 0px 5px 10px 5px #0000001d;
     font-size: 20px;
     display: flex;
@@ -22,7 +23,7 @@
     text-decoration: none;
     line-height: 50px;
     color: white;
-    background-color: #6ed9a000;
+    background: transparent;
 }
 
 .navelem:hover {
@@ -33,7 +34,7 @@
 
 #navmain {
     padding-left: 10px;
-    background-color: #6ed9a000;
+    background: transparent;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -41,14 +42,14 @@
 
 #navuser {
     padding-right: 10px;
-    background-color: #6ed9a000;
+    background: transparent;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .navlogo {
-    background-color: #6ed9a000;
+    background: transparent;
     height: 40px;
     width: 40px;
     cursor: pointer;
