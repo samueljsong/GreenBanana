@@ -5,6 +5,21 @@
 <%- include("templates/headerEnd") %> 
 
 <%- include("templates/navBar") %>
+<div class="signup-container">
+    <div class="signup-form-container">
+        <h1 class="signup-title">Signup</h1>
+        <form class="signup-form" action="/createUser" method="post">
+            <input class="signup-input" id="username" name="username" type="text" placeholder="Username" required>
+            <input class="signup-input" type="email" name="email" id="email" placeholder="Email" required>
+            <input class="signup-input" type="password" name="password" id="password" placeholder="Password" required>
+            <button class="signup-button">Signup</button>
+        </form>
+        <div class="signup-login">
+            <p>Already have an account?</p>
+            <p>-</p>
+            <a class="login" href="/login">Login</a>
+        </div>
+    </div>
 
 <div class="signup-container">
     <div class="signup-form-container">
@@ -23,7 +38,15 @@
     </div>
 
     <span class="vertical-line"></span>
+    <span class="vertical-line"></span>
 
+    <div class="signup-logo-container">
+        <img class="logo" src="/assets/logo.png" alt="">
+        <div class="title-section">
+            <h1 class="green">Green</h1>
+            <h1 class="banana">Banana</h1>
+        </div>
+    </div>
     <div class="signup-logo-container">
         <img class="logo" src="/assets/logo.png" alt="">
         <div class="title-section">
@@ -33,7 +56,17 @@
     </div>
 
 </div>
+</div>
 
+<% if (msg) { %>
+    <div id="blackout" style="display: grid;">
+        <div class="modal-container">
+            <h1 class="oops">OOPS!</h1>
+            <p id="modal-text"><%= msg %></p>
+            <button onclick="document.getElementById('blackout').style.display = 'none'" class="ok-button">Ok</button>
+        </div>
+    </div>
+<% } %>
 <% if (msg) { %>
     <div id="blackout" style="display: grid;">
         <div class="modal-container">
