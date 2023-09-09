@@ -5,17 +5,6 @@
     background-color: #2a363f;
 }
 
-@keyframes highlightBorder {
-    0% {
-        box-shadow: none;
-        border: solid 3px #5f686f;
-    }
-    100%{
-        box-shadow: 0 0 10px #6ed9a0;
-        border: solid 3px #6ed9a0;
-    }
-}
-
 /*CSS for mobile*/
 @media only screen and (max-width: 480px){
 
@@ -43,6 +32,7 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
+        width: 100%;
     }
 
     .signup-form{
@@ -53,13 +43,13 @@
     }
 
     .signup-input{
-        height: 4rem;
-        width: 24rem;
+        height: 3rem;
+        width: 80%;
         border-radius: 5px;
         border: solid 3px #5f686f;
         color: #ffffff;
         padding-left: 1rem;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     
     .signup-input:focus{
@@ -70,29 +60,41 @@
 
     .signup-button{
         margin-top: 1rem;
-        height: 4rem;
-        width: 25rem;
+        height: 3rem;
+        width: 86%;
         background-color: #6ed9a0;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         border-radius: 5px;
         cursor: pointer;
         border: none;
+    }
+
+    .signup-button:hover{
+        animation: 0.3s buttonGlow;
+        animation-fill-mode: forwards;
     }
 
     .signup-login{
         display: flex;
         justify-content: space-around;
         font-size: 1rem;
+        margin-top: 1rem;
     }
 
     .login{
         text-decoration: none;
+        border-bottom: solid 1px transparent;
         color: #6ed9a0;
+    }
+
+    .login:hover{
+        animation: 0.3s underline;
+        animation-fill-mode: forwards;
     }
 
     .vertical-line{
         height: 1px;
-        width: 90%;
+        width: 80%;
         background-color: #6ed9a0;
         grid-row-start: 2;
     }
@@ -119,6 +121,51 @@
     .green{
         color: #6ed9a0;
         text-shadow: 0 0 20px #6ed9a0;
+    }
+
+    #blackout{
+        display: none;
+        position: absolute;
+        place-items: center;
+        z-index: 2;
+        background-color: #151b205a;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .modal-container{
+        height: 20rem;
+        width: 20rem;
+        background-color: #161a1fc3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 20px #6ed9a0;
+        border-radius: 5px;
+        gap: 1rem;
+    }
+
+    #modal-text{
+        text-decoration: none;
+        background: none;
+        width: 12rem;
+        text-align: center;
+    }
+
+    .ok-button{
+        height: 2rem;
+        width: 10rem;
+        background-color: #6ed9a0;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .oops{
+        color: #6ed9a0;
+        background: none;
     }
 }
 
@@ -177,7 +224,7 @@
     .signup-button{
         margin-top: 1rem;
         height: 4rem;
-        width: 25rem;
+        width: 25.5rem;
         background-color: #6ed9a0;
         font-size: 1.4rem;
         border-radius: 5px;
@@ -185,15 +232,26 @@
         border: none;
     }
 
+    .signup-button:hover{
+        animation: 0.3s buttonGlow;
+        animation-fill-mode:forwards;
+    }
+
     .signup-login{
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         font-size: 1.1rem;
     }
 
     .login{
         text-decoration: none;
         color: #6ed9a0;
+        border-bottom: solid 1px transparent;
+    }
+
+    .login:hover{
+        animation: 0.3s underline;
+        animation-fill-mode: forwards;
     }
 
     .vertical-line{
@@ -226,6 +284,51 @@
         color: #6ed9a0;
         text-shadow: 0 0 20px #6ed9a0;
     }
+
+    #blackout{
+        display: none;
+        position: absolute;
+        place-items: center;
+        z-index: 2;
+        background-color: #151b205a;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .modal-container{
+        height: 20rem;
+        width: 20rem;
+        background-color: #161a1fc3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 20px #6ed9a0;
+        border-radius: 5px;
+        gap: 1rem;
+    }
+
+    #modal-text{
+        text-decoration: none;
+        background: none;
+        width: 12rem;
+        text-align: center;
+    }
+
+    .ok-button{
+        height: 2rem;
+        width: 10rem;
+        background-color: #6ed9a0;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .oops{
+        color: #6ed9a0;
+        background: none;
+    }
 }
 
 /*CSS for desktop*/
@@ -250,6 +353,7 @@
         justify-content: space-around;
         align-items: center;
         margin-left: 2rem;
+        z-index: 1;
     }
 
     .signup-form-container{
@@ -292,6 +396,11 @@
         border: none;
     }
 
+    .signup-button:hover{
+        animation: 0.3s buttonGlow;
+        animation-fill-mode: forwards;
+    }
+
     .signup-login{
         display: flex;
         justify-content: space-between;
@@ -301,6 +410,12 @@
     .login{
         text-decoration: none;
         color: #6ed9a0;
+        border-bottom: solid 1px transparent;
+    }
+
+    .login:hover{
+        animation: 0.3s underline;
+        animation-fill-mode: forwards;
     }
 
     .vertical-line{
@@ -330,6 +445,51 @@
     .green{
         color: #6ed9a0;
         text-shadow: 0 0 20px #6ed9a0;
+    }
+
+    #blackout{
+        display: none;
+        position: absolute;
+        place-items: center;
+        z-index: 2;
+        background-color: #151b205a;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .modal-container{
+        height: 20rem;
+        width: 20rem;
+        background-color: #161a1fc3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 20px #6ed9a0;
+        border-radius: 5px;
+        gap: 1rem;
+    }
+
+    #modal-text{
+        text-decoration: none;
+        background: none;
+        width: 12rem;
+        text-align: center;
+    }
+
+    .ok-button{
+        height: 2rem;
+        width: 10rem;
+        background-color: #6ed9a0;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .oops{
+        color: #6ed9a0;
+        background: none;
     }
 
 

@@ -68,7 +68,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/signup', (req, res) => {
-    res.render('signup');
+    let msg = req.query.msg;
+    console.log(msg);
+    res.render('signup', {msg: msg});
 })
 
 app.get('/login', (req, res) => {
@@ -76,28 +78,61 @@ app.get('/login', (req, res) => {
 })
 
 
+// Util functions
+function containsUppercase(str){
+    return /[A-Z]/.test(str);
+}
+
+function containsNumbers(str){
+    return /[0-9]/.test(str);
+}
+
+function containsSpecialCharacter(str){
+    let specialChars =/[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/;
+    return specialChars.test(str);
+}
+
+function isPassValid(str){
+    if (str.length < 10) return 'Password length has to be at least 10..';
+    if (!containsUppercase(str)) return 'Password must contain 1 uppercase..';
+    if (!containsNumbers(str)) return 'Password must contain 1 number..';
+    if (!containsSpecialCharacter(str)) return 'Password must contain 1 special character..';
+    return '';
+}
+
 // API
 app.post('/createUser', async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
     let email = req.body.email;
 
-    let hashedPassword = bcrypt.hashSync(password, saltRounds);
-
     if(email && username && password){
-        let success = await db_query.createUser({user: username, email: email, hashedPassword: hashedPassword});
 
-        if(success){
-            console.log("User has been created");
-            res.redirect("/");
-        } else {
-            console.log("ERROR OCCURED")
+        let result = isPassValid(password);
+        if(result === ''){
+
+            let hashedPassword = bcrypt.hashSync(password, saltRounds);
+
+            let success = await db_query.createUser(
+                {user: username, email: email, hashedPassword: hashedPassword}
+            );
+
+            if(success){
+                console.log("User has been created");
+                res.redirect("/");
+            }
+            else {
+                console.log("ERROR OCCURED")
+            }
+        }
+        else{
+            // Need to create a popup to the front end
+            res.redirect(`signup?msg=${result}`);
         }
     }else{
         if(!username) console.log("Fillout Username")
         if(!password) console.log("Fillout Password")
         if(!email) console.log("Fillout Email")
-        
     }
 })
 
