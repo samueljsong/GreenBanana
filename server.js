@@ -68,9 +68,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/signup', (req, res) => {
-    let message = req.query.message;
-    console.log(message);
-    res.render('signup');
+    let msg = req.query.msg;
+    console.log(msg);
+    res.render('signup', {msg: msg});
 })
 
 app.get('/login', (req, res) => {
@@ -93,11 +93,11 @@ function containsSpecialCharacter(str){
 }
 
 function isPassValid(str){
-    if (str.length < 10) return 'Password length has to be at least 10..'
+    if (str.length < 10) return 'Password length has to be at least 10..';
     if (!containsUppercase(str)) return 'Password must contain 1 uppercase..';
     if (!containsNumbers(str)) return 'Password must contain 1 number..';
     if (!containsSpecialCharacter(str)) return 'Password must contain 1 special character..';
-    return true;
+    return '';
 }
 
 // API
@@ -109,7 +109,7 @@ app.post('/createUser', async (req, res) => {
     if(email && username && password){
 
         let result = isPassValid(password);
-        if(result === true){
+        if(result === ''){
 
             let hashedPassword = bcrypt.hashSync(password, saltRounds);
 
@@ -127,7 +127,7 @@ app.post('/createUser', async (req, res) => {
         }
         else{
             // Need to create a popup to the front end
-            res.render(`/signup?result=${result}`);
+            res.redirect(`signup?msg=${result}`);
         }
     }else{
         if(!username) console.log("Fillout Username")

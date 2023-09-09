@@ -5,17 +5,6 @@
     background-color: #2a363f;
 }
 
-@keyframes highlightBorder {
-    0% {
-        box-shadow: none;
-        border: solid 3px #5f686f;
-    }
-    100%{
-        box-shadow: 0 0 10px #6ed9a0;
-        border: solid 3px #6ed9a0;
-    }
-}
-
 /*CSS for mobile*/
 @media only screen and (max-width: 480px){
 
@@ -88,12 +77,12 @@
     }
     
     .login-input{
-        height: 4rem;
+        height: 3rem;
         width: 80%;
         border-radius: 5px;
         color: #ffffff;
         padding-left: 1rem;
-        font-size: 1.2rem;
+        font-size: 1rem;
         border: solid 3px #5f686f;
     }
     
@@ -105,13 +94,18 @@
     
     .login-button{
         margin-top: 1rem;
-        height: 4rem;
-        width: 80%;
+        height: 3rem;
+        width: 85.5%;
         background-color: #6ed9a0;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         border-radius: 5px;
         border: none;
         cursor: pointer;
+    }
+
+    .login-button:hover{
+        animation: 0.3s buttonGlow;
+        animation-fill-mode: forwards;
     }
     
     .login-signup{
@@ -125,6 +119,12 @@
     .signup{
         color: #6ed9a0;
         text-decoration: none;
+        border-bottom: solid 1px transparent;
+    }
+
+    .signup:hover{
+        animation: 0.3s underline;
+        animation-fill-mode: forwards;
     }
 }
 
@@ -223,10 +223,15 @@
         cursor: pointer;
         border: none;
     }
+
+    .login-button:hover{
+        animation: 0.3s buttonGlow;
+        animation-fill-mode: forwards;
+    }
     
     .login-signup{
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
         width: 100%;
         font-size: 1.1rem;
@@ -235,6 +240,12 @@
     .signup{
         color: #6ed9a0;
         text-decoration: none;
+        border-bottom: solid 1px transparent;
+    }
+
+    .signup:hover{
+        animation: 0.3s underline;
+        animation-fill-mode: forwards;
     }
 }
 
@@ -332,6 +343,11 @@
         cursor: pointer;
         border: none;
     }
+
+    .login-button:hover{
+        animation: 0.3s buttonGlow;
+        animation-fill-mode: forwards;
+    }
     
     .login-signup{
         display: flex;
@@ -344,6 +360,12 @@
     .signup{
         color: #6ed9a0;
         text-decoration: none;
+        border-bottom: solid 1px transparent;
+    }
+
+    .signup:hover{
+        animation: 0.3s underline;
+        animation-fill-mode: forwards;
     }
     
     

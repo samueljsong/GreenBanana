@@ -1,14 +1,15 @@
 <%- include("templates/headerStart") %> 
 <link rel="stylesheet" href="/css/signup.css">
+<link rel="stylesheet" href="/css/animations.css">
 <%- include("templates/headerEnd") %> 
 
 <div class="signup-container">
     <div class="signup-form-container">
         <h1 class="signup-title">Signup</h1>
         <form class="signup-form" action="/createUser" method="post">
-            <input class="signup-input" id="username" name="username" type="text" placeholder="Username">
-            <input class="signup-input" type="email" name="email" id="email" placeholder="Email">
-            <input class="signup-input" type="password" name="password" id="password" placeholder="Password" minlength="10">
+            <input class="signup-input" id="username" name="username" type="text" placeholder="Username" required>
+            <input class="signup-input" type="email" name="email" id="email" placeholder="Email" required>
+            <input class="signup-input" type="password" name="password" id="password" placeholder="Password" required>
             <button class="signup-button">Signup</button>
         </form>
         <div class="signup-login">
@@ -30,12 +31,14 @@
 
 </div>
 
-<div id="blackout" style="display: none;">
-    <div class="modal-container">
-        <p id="modal-text">asdf</p>
-        <button>Ok</button>
+<% if (msg) { %>
+    <div id="blackout" style="display: grid;">
+        <div class="modal-container">
+            <h1 class="oops">OOPS!</h1>
+            <p id="modal-text"><%= msg %></p>
+            <button onclick="document.getElementById('blackout').style.display = 'none'" class="ok-button">Ok</button>
+        </div>
     </div>
-</div>
-
+<% } %>
     
 <%- include("templates/footer") %> 
