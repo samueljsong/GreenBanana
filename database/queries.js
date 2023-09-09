@@ -8,7 +8,7 @@ async function createUser(postData) {
         (?, ?, ?);
     `;
 
-    let param = [postData.user, postData.email, postData.hashedPassword]
+    let param = [postData.user, postData.email, postData.hashedPassword];
 
     try {
         const result = await database.query(createUserSQL, param);
@@ -18,9 +18,29 @@ async function createUser(postData) {
     catch(err){
         console.log("Error inserting user");
         console.log(err);
-        return false
+        return false;
+    }
+}
+
+async function getUser(postData){
+    let getUserSQL = `
+        SELECT user_id, username, email, password
+        FROM user
+        WHERE email = (?);
+    `;
+
+    let param = [postData.email];
+
+    try{
+        const results = await database.query(getUserSQL, param);
+        return results[0];
+    }
+    catch (err) {
+        console.log("Error in finding user");
+        console.log(err);
+        return false;
     }
 }
 
 
-module.exports = {createUser}
+module.exports = {createUser, getUser}

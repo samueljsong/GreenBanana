@@ -73,7 +73,8 @@ app.get('/signup', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    res.render('login', {loggedin: false});
+    let msg = req.query.msg;
+    res.render('login', {msg: msg, loggedin: false});
 })
 
 
@@ -96,10 +97,12 @@ function isPassValid(str){
     if (!containsUppercase(str)) return 'Password must contain 1 uppercase..';
     if (!containsNumbers(str)) return 'Password must contain 1 number..';
     if (!containsSpecialCharacter(str)) return 'Password must contain 1 special character..';
-    return '';
+    return true;
 }
 
 // API
+
+// Creates user
 app.post('/createUser', async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
@@ -108,7 +111,7 @@ app.post('/createUser', async (req, res) => {
     if(email && username && password){
 
         let result = isPassValid(password);
-        if(result === ''){
+        if(result === true){
 
             let hashedPassword = bcrypt.hashSync(password, saltRounds);
 
@@ -133,6 +136,41 @@ app.post('/createUser', async (req, res) => {
         if(!password) console.log("Fillout Password")
         if(!email) console.log("Fillout Email")
     }
+})
+
+// Login User
+app.post('/loginUser', async (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+
+    let results = await db_query.getUser({email: email});
+
+    if(results){
+        if (results.length === 1){
+            console.log( await bcrypt.compare(password, results[0].password))
+            if ( bcrypt.compareSync(password, results[0].password)){
+                req.session.authenticated = true;
+                req.session.username = results[0].username;
+                req.session.cookie.maxAge = expireTime;
+                req.session.user_id = results[0].user_id;
+                res.redirect('/');
+                return;
+            } 
+            else {
+                let message = "Password does not match the email in our records. Try again."
+                res.redirect(`login?msg=${message}`);
+            }
+        }
+        else {
+            let message = "An account with that email has not been found in our records."
+            res.redirect(`login?msg=${message}`);
+        }
+    }
+    else {
+        let message = "An account with that email has not been found in our records."
+        res.redirect(`login?msg=${message}`);
+    }
+
 })
 
 

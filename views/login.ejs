@@ -32,6 +32,14 @@
     </div>
 </div>
 
-
+<% if (msg) { %>
+    <div id="blackout" style="display: grid;">
+        <div class="modal-container">
+            <h1 class="oops">OOPS!</h1>
+            <p id="modal-text"><%= msg %></p>
+            <button onclick="document.getElementById('blackout').style.display = 'none'" class="ok-button">Ok</button>
+        </div>
+    </div>
+<% } %>
     
 <%- include("templates/footer") %> 
