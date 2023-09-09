@@ -149,6 +149,7 @@ app.post('/loginUser', async (req, res) => {
         if (results.length === 1){
             console.log( await bcrypt.compare(password, results[0].password))
             if ( bcrypt.compareSync(password, results[0].password)){
+                await req.session.save();
                 req.session.authenticated = true;
                 req.session.username = results[0].username;
                 req.session.cookie.maxAge = expireTime;
