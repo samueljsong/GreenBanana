@@ -1,3 +1,39 @@
+*{
+    margin: 0;
+    font-family: Roboto;
+    color: #ffffff;
+    background-color: #2a363f;
+}
+
+@keyframes highlightBorder {
+    0% {
+        box-shadow: none;
+        border: solid 3px #5f686f;
+    }
+    100%{
+        box-shadow: 0 0 10px #6ed9a0;
+        border: solid 3px #6ed9a0;
+    }
+}
+
+@keyframes buttonGlow{
+    0% {
+        box-shadow: none;
+    }
+    100%{
+        box-shadow: 0 0 10px #6ed9a0;
+    }
+}
+
+@keyframes underline{
+    0%{
+        border-bottom: solid 1px transparent;
+    }
+    100%{
+        border-bottom: solid 1px #6ed9a0;
+    }
+}
+
 /*CSS for mobile*/
 @media only screen and (max-width: 480px){
 
@@ -5,9 +41,11 @@
         display: none;
     }
 
-    #main{
+    body{
         display: grid;
         place-items: center;
+        height: 100vh;
+        width: 100%;
     }
 
     .signup-container{
@@ -70,7 +108,6 @@
         justify-content: space-around;
         font-size: 1rem;
         margin-top: 1rem;
-        align-items: center;
     }
 
     .login{
@@ -108,10 +145,6 @@
         flex-direction: column;
         font-size: 1rem;
         letter-spacing: 7px;
-    }
-    
-    .title-section h1 {
-        margin: 0;
     }
     
     .green{
@@ -172,9 +205,11 @@
         display: none;
     }
 
-    #main{
+    body{
         display: grid;
         place-items: center;
+        height: 100vh;
+        width: 100%;
     }
 
     .signup-container{
@@ -235,7 +270,6 @@
         display: flex;
         justify-content: space-between;
         font-size: 1.1rem;
-        align-items: center;
     }
 
     .login{
@@ -273,10 +307,6 @@
         flex-direction: column;
         font-size: 1.5rem;
         letter-spacing: 7px;
-    }
-
-    .title-section h1 {
-        margin: 0;
     }
     
     .green{
@@ -338,9 +368,11 @@
         align-self: center;
     }
 
-    #main{
+    body{
         display: grid;
         place-items: center;
+        height: 100vh;
+        width: 100%;
     }
 
     .signup-container{
@@ -402,7 +434,6 @@
         display: flex;
         justify-content: space-between;
         font-size: 1.3rem;
-        align-items: center;
     }
 
     .login{
@@ -438,10 +469,6 @@
         flex-direction: column;
         font-size: 2rem;
         letter-spacing: 7px;
-    }
-
-    .title-section h1 {
-        margin: 0;
     }
     
     .green{

@@ -257,6 +257,7 @@
 
     body{
         display: grid;
+        grid-template-rows: auto;
         place-items: center;
         height: 100vh;
         width: 100vw;

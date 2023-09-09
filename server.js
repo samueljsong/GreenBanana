@@ -74,7 +74,7 @@ app.get('/signup', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', {loggedin: false});
 })
 
 
