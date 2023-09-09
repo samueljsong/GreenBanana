@@ -8,7 +8,7 @@
         <form class="signup-form" action="/createUser" method="post">
             <input class="signup-input" id="username" name="username" type="text" placeholder="Username">
             <input class="signup-input" type="email" name="email" id="email" placeholder="Email">
-            <input class="signup-input" type="password" name="password" id="password" placeholder="Password">
+            <input class="signup-input" type="password" name="password" id="password" placeholder="Password" minlength="10">
             <button class="signup-button">Signup</button>
         </form>
         <div class="signup-login">
@@ -29,5 +29,13 @@
     </div>
 
 </div>
+
+<div id="blackout" style="display: none;">
+    <div class="modal-container">
+        <p id="modal-text">asdf</p>
+        <button>Ok</button>
+    </div>
+</div>
+
     
 <%- include("templates/footer") %> 
