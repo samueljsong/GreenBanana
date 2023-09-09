@@ -11,19 +11,22 @@ h1 {
 #mainbtns {
     grid-row-start: 3;
     display: grid;
-    grid-template-columns: auto 100px 50px 100px 50px 100px auto;
+    grid-template-columns: auto 125px 50px 125px 50px 125px auto;
 }
 
 button {
-    background-color: #4CAF50;
+    color: #ffffff;
+    background-color: #6ed9a0;
     border-radius: 4px;
     border: none;
-    height: 30px;
+    height: 35px;
     font-size: 20px;
+    font-family: Roboto;
 }
 
 button:hover {
-    background-color: lightgreen;
+    animation: 0.3s buttonGlow;
+    animation-fill-mode: forwards;
 }
 
 #linkbtn {
