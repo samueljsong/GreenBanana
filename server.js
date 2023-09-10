@@ -65,6 +65,7 @@ app.use(session({
 // Routes
 app.get('/', (req, res) => {
     let loggedin = isValidSession(req)
+    console.log(loggedin);
     res.render('index', {loggedin: loggedin});
 })
 
@@ -179,6 +180,11 @@ app.post('/loginUser', async (req, res) => {
     }
 
 })
+
+app.post('/logout', async (req,res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 
 app.listen(PORT, async () => {
