@@ -3,8 +3,6 @@
     position: fixed;
     width: 100%;
     height: 50px;
-    /* border-style: solid; */
-    /* border-color: #6ed9a00c; */
     background-color: #2a363f20;
     backdrop-filter: blur(5px);
     box-shadow: 0px 5px 10px 5px #0000001d;
@@ -19,11 +17,12 @@
 }
 
 .navelem {
-    /* text-shadow: 2px 2px 10px #6ed9a0; */
+    height: 50px;
     text-decoration: none;
     line-height: 50px;
     color: white;
     background: transparent;
+    cursor: pointer;
 }
 
 .navelem:hover {
@@ -69,4 +68,19 @@
 .navlelem:hover {
     animation: 0.3s underline;
     animation-fill-mode: forwards;
+}
+
+#navmenu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #2a363f20;
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 5px 10px 5px #0000001d;
+    z-index: 3;
+    top: 50px;
+    flex-direction: column;
+    text-align: end;
+    padding-right: 10px;
+    padding-left: 10px;
 }

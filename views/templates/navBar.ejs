@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+<script src="/scripts/navbar.js"></script>
 <div id="navbar">
     <div id="navmain">
         <a class="navlelem" href="/"><img class="navlogo" src="/assets/logo.png" alt=""></a>
@@ -10,10 +11,16 @@
 
     <div id="navuser">
         <% if(loggedin == false){ %>
-        <a class="navelem" id="navlogin" href="/login">Login</a>
-        <a class="navelem" id="navsignup" href="/signup">Signup</a>
-        <% } else{ %>
-        <a class="navelem" id="navprofile" href="/profile">My Profile</a>
+            <a class="navelem" id="navlogin" href="/login">Login</a>
+            <a class="navelem" id="navsignup" href="/signup">Signup</a>
+        <% } else { %>
+            <p class="navelem navmenu" id="navmenubtn" onclick="togglemenu()">Menu</p>
+            <div class="navmenu" id="navmenu">
+                <a class="navelem" href="#">My Profile</a>
+                <form action='/logout' method='post'>
+                    <button class="navelem">Sign out</button>
+                </form>
+            </div>
         <% } %>
     </div>
 </div>
