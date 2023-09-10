@@ -1,20 +1,28 @@
 var menu = false;
 
 function togglemenu() {
-    var myDropdown = document.getElementById("navmenu");
+    var navmenu = document.getElementById("navmenu");
+    var menubtn = document.getElementById("navmenubtn");    
     if (menu == false) {
-        myDropdown.style.display = "flex"
+        navmenu.style.display = "flex";
+        menubtn.style.borderBottom = "solid 1px #6ed9a0";
+        menubtn.style.textShadow =  "0px 0px 20px #6ed9a0";
         menu = true;
     } else {
-        myDropdown.style.display = "none";
+        navmenu.style.display = "none";
+        menubtn.style.borderBottom = null;
+        menubtn.style.textShadow =  null;
         menu = false;
     }
 }
 
 window.onclick = function(e) {
-    var myDropdown = document.getElementById("navmenu");
+    var navmenu = document.getElementById("navmenu");
+    var menubtn = document.getElementById("navmenubtn");
     if (!e.target.matches('.navmenu')) {
-        myDropdown.style.display = "none";
+        navmenu.style.display = "none";
+        menubtn.style.borderBottom = null;
+        menubtn.style.textShadow =  null;
         menu = false;
     }
 }
