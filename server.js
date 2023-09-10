@@ -78,6 +78,11 @@ app.get('/login', (req, res) => {
     res.render('login', {msg: msg, loggedin: false});
 })
 
+app.get('/profile', (req, res) => {
+    let loggedin = isValidSession(req)
+    res.render('profile', {loggedin: loggedin});
+})
+
 
 // Util functions
 
