@@ -1,10 +1,49 @@
 <%- include("templates/headerStart") %>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="/css/profile.css">
 <%- include("templates/headerEnd") %> 
 
 <%- include("templates/navBar") %> 
+<span class="spacer"></span>
 
+<div class="profile-container">
 
+    <div class="top-section">
+        <img class="profile-pic" src="/assets/cat.jpg" alt="none">
+        <div class="stats-container">
+            <div class="stats">
+                <p class="stats-num">123</p>
+                <p>Hits</p>
+            </div>
+            <div class="stats">
+                <p class="stats-num">4</p>
+                <p>Posts</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mid-section">
+        <div class="user-info">
+            <p class="user-name">Tester</p>
+            <p class="user-email">test@gmail.com</p>
+        </div>
+        <div class="btn-container">
+            <button class="btn">Edit profile</button>
+            <button class="btn">Create post</button>
+        </div>
+    </div>
+
+    <!-- <span class="line"></span> -->
+
+    <div class="post-section">
+        <div class="type-container">
+            <img class="type" src="/assets/link.png" alt="">
+            <img class="type" src="/assets/img.png" alt="">
+            <img class="type" src="/assets/txt.png" alt="">
+        </div>
+    </div>
+
+</div>
 
 
 

@@ -18,7 +18,7 @@ const db_query = require('./database/queries')
 // Generic Constants
 const PORT = process.env.PORT || 4000;
 const app = express();
-const expireTime = 5 * 60 * 1000; //expires after 5min  (hours * minutes * seconds * millis)
+const expireTime = 60 * 60 * 1000; //expires after 1hr  (hours * minutes * seconds * millis)
 const saltRounds = 12;
 
 // Connecting to MongoDB
@@ -64,8 +64,7 @@ app.use(session({
 
 // Routes
 app.get('/', (req, res) => {
-    let loggedin = isValidSession(req)
-    console.log(loggedin);
+    let loggedin = isValidSession(req);
     res.render('index', {loggedin: loggedin});
 })
 
@@ -88,8 +87,11 @@ app.get('/profile', (req, res) => {
 // Util functions
 
 function isValidSession(req){
-    if(req.session.authenticated) return true;
-    return false
+    if(req.session.authenticated === true){
+        return true;
+    }else{
+        return false
+    }
 }
 
 function containsUppercase(str){
@@ -157,15 +159,18 @@ app.post('/loginUser', async (req, res) => {
     let password = req.body.password;
 
     let results = await db_query.getUser({email: email});
-
+    console.log(results);
+    console.log(results.length);
     if(results){
         if (results.length === 1){
+            console.log(bcrypt.compareSync(password, results[0].password))
             if ( bcrypt.compareSync(password, results[0].password)){
-                await req.session.save();
+                req.session.save();
                 req.session.authenticated = true;
                 req.session.username = results[0].username;
                 req.session.cookie.maxAge = expireTime;
                 req.session.user_id = results[0].user_id;
+                console.log(req.session.authenticated);
                 res.redirect('/');
                 return;
             } 
