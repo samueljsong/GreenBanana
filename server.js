@@ -64,35 +64,49 @@ app.use(session({
 
 // Routes
 app.get('/', (req, res) => {
-    let loggedin = isValidSession(req);
-    res.render('index', {loggedin: loggedin});
+    console.log(req.session.authenticated);
+    if (!req.session.authenticated) {
+        req.session.destroy();
+        res.render("index", {loggedin: false});
+    } else {
+        res.render('index', {loggedin: true});
+    }
 })
 
 app.get('/signup', (req, res) => {
-    let msg = req.query.msg;
-    res.render('signup', {msg: msg, loggedin: false});
+    if (req.session.authenticated) {
+        res.render("index", {loggedin: true});
+    } else {
+        let msg = req.query.msg;
+        res.render('signup', {msg: msg, loggedin: false});
+    }
 })
 
 app.get('/login', (req, res) => {
-    let msg = req.query.msg;
-    res.render('login', {msg: msg, loggedin: false});
+    if (req.session.authenticated) {
+        res.render("index", {loggedin: true});
+    } else {
+        let msg = req.query.msg;
+        res.render('login', {msg: msg, loggedin: false});
+    }
 })
 
 app.get('/profile', (req, res) => {
-    let loggedin = isValidSession(req)
-    res.render('profile', {loggedin: loggedin});
+    if (!req.session.authenticated) {
+        req.session.destroy();
+        res.render("index", {loggedin: false});
+    } else {
+        res.render('profile', {loggedin: true});
+    }
 })
 
 
 // Util functions
 
-function isValidSession(req){
-    if(req.session.authenticated === true){
-        return true;
-    }else{
-        return false
-    }
-}
+// function isValidSession(req){
+//     if(req.session.authenticated) return true;
+//     return false
+// }
 
 function containsUppercase(str){
     return /[A-Z]/.test(str);
@@ -165,7 +179,6 @@ app.post('/loginUser', async (req, res) => {
         if (results.length === 1){
             console.log(bcrypt.compareSync(password, results[0].password))
             if ( bcrypt.compareSync(password, results[0].password)){
-                req.session.save();
                 req.session.authenticated = true;
                 req.session.username = results[0].username;
                 req.session.cookie.maxAge = expireTime;
