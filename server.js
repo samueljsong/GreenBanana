@@ -64,33 +64,51 @@ app.use(session({
 
 // Routes
 app.get('/', (req, res) => {
-    let loggedin = isValidSession(req)
-    console.log(loggedin);
-    res.render('index', {loggedin: loggedin});
+    console.log(req.session.authenticated);
+    if (!req.session.authenticated) {
+        req.session.destroy();
+        res.render("index", {loggedin: false});
+    } else {
+        res.render('index', {loggedin: true});
+    }
 })
 
 app.get('/signup', (req, res) => {
-    let msg = req.query.msg;
-    res.render('signup', {msg: msg, loggedin: false});
+    if (req.session.authenticated) {
+        req.session.destroy();
+        res.render("index", {loggedin: false});
+    } else {
+        let msg = req.query.msg;
+        res.render('signup', {msg: msg, loggedin: false});
+    }
 })
 
 app.get('/login', (req, res) => {
-    let msg = req.query.msg;
-    res.render('login', {msg: msg, loggedin: false});
+    if (req.session.authenticated) {
+        req.session.destroy();
+        res.render("index", {loggedin: false});
+    } else {
+        let msg = req.query.msg;
+        res.render('login', {msg: msg, loggedin: false});
+    }
 })
 
 app.get('/profile', (req, res) => {
-    let loggedin = isValidSession(req)
-    res.render('profile', {loggedin: loggedin});
+    if (!req.session.authenticated) {
+        req.session.destroy();
+        res.render("index", {loggedin: false});
+    } else {
+        res.render('profile', {loggedin: true});
+    }
 })
 
 
 // Util functions
 
-function isValidSession(req){
-    if(req.session.authenticated) return true;
-    return false
-}
+// function isValidSession(req){
+//     if(req.session.authenticated) return true;
+//     return false
+// }
 
 function containsUppercase(str){
     return /[A-Z]/.test(str);
@@ -161,7 +179,6 @@ app.post('/loginUser', async (req, res) => {
     if(results){
         if (results.length === 1){
             if ( bcrypt.compareSync(password, results[0].password)){
-                await req.session.save();
                 req.session.authenticated = true;
                 req.session.username = results[0].username;
                 req.session.cookie.maxAge = expireTime;
