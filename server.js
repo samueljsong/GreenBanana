@@ -75,8 +75,7 @@ app.get('/', (req, res) => {
 
 app.get('/signup', (req, res) => {
     if (req.session.authenticated) {
-        req.session.destroy();
-        res.render("index", {loggedin: false});
+        res.render("index", {loggedin: true});
     } else {
         let msg = req.query.msg;
         res.render('signup', {msg: msg, loggedin: false});
@@ -85,8 +84,7 @@ app.get('/signup', (req, res) => {
 
 app.get('/login', (req, res) => {
     if (req.session.authenticated) {
-        req.session.destroy();
-        res.render("index", {loggedin: false});
+        res.render("index", {loggedin: true});
     } else {
         let msg = req.query.msg;
         res.render('login', {msg: msg, loggedin: false});
