@@ -91,12 +91,17 @@ app.get('/login', (req, res) => {
     }
 })
 
+
 app.get('/profile', (req, res) => {
     if (!req.session.authenticated) {
         req.session.destroy();
         res.render("index", {loggedin: false});
     } else {
-        res.render('profile', {loggedin: true});
+        res.render('profile', {
+            loggedin: true,
+            username: req.session.username,
+            email: req.session.email,
+        });
     }
 })
 
@@ -181,9 +186,9 @@ app.post('/loginUser', async (req, res) => {
             if ( bcrypt.compareSync(password, results[0].password)){
                 req.session.authenticated = true;
                 req.session.username = results[0].username;
+                req.session.email = results[0].email;
                 req.session.cookie.maxAge = expireTime;
                 req.session.user_id = results[0].user_id;
-                console.log(req.session.authenticated);
                 res.redirect('/');
                 return;
             } 
