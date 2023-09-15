@@ -9,7 +9,6 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
-const cloudinary = require('cloudinary').v2;
 const ejs = require('ejs');
 
 //DB
@@ -38,11 +37,18 @@ let mongoStore = MongoStore.create({
 
 
 // Connect to Cloudinary
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_NAME,
-    secure: true,
-    api_key: process.env.CLOUDINARY_KEY, 
-    api_secret: process.env.CLOUDINARY_SECRET
+const crypto = require('crypto');
+const {v4: uuid} = require('uuid');
+const multer  = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
+const Joi = require("joi");
+
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_CLOUD_KEY,
+  api_secret: process.env.CLOUDINARY_CLOUD_SECRET
 });
 
 // MiddleWare
@@ -104,6 +110,20 @@ app.get('/profile', (req, res) => {
         });
     }
 })
+
+
+app.get('/image', (req, res) => {
+    if (!req.session.authenticated){
+        res.render("image", {loggedin: false});
+    } else {
+        res.render('image', {
+            loggedin: true,
+            username: req.session.username,
+            email: req.session.email
+        })
+    }
+})
+
 
 
 // Util functions
@@ -213,6 +233,23 @@ app.post('/logout', async (req,res) => {
     req.session.destroy();
     res.redirect('/');
 });
+
+
+app.post('/createImage', upload.single('image'), (req, res) => {
+    let image_uuid = uuid();
+    let user_id = req.session.user_id;
+    let buf64 = req.file.buffer.toString('base64');
+
+    cloudinary.uploader.upload("data:image/png;base64," + buf64).then(async(result) => {
+        let public_id = result.public_id;
+        let url = result.url;
+
+        let results = await db_query.createImage({user_id: user_id, type_id: 2, url:url, public_id:public_id});
+
+    })
+
+    res.redirect('/image')
+})
 
 
 app.listen(PORT, async () => {

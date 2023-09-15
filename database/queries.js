@@ -42,5 +42,22 @@ async function getUser(postData){
     }
 }
 
+async function createImage(postData){
+    let createImageSQL = `
+        INSERT INTO images (frn_user_id, frn_type_id, url, public_id)
+        VALUES (?, ?, ?, ?);
+    `
 
-module.exports = {createUser, getUser}
+    let param = [postData.user_id, postData.type_id, postData.url, postData.public_id];
+
+    try{
+        const results = await database.query(createImageSQL, param);
+    }
+    catch(err){
+        console.log("Error in inputing a new image");
+        console.log(err);
+    }
+}
+
+
+module.exports = {createUser, getUser, createImage}

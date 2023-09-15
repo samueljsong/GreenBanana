@@ -1,0 +1,41 @@
+<%- include("templates/headerStart") %>
+<link rel="stylesheet" href="/css/image.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+<script src="/scripts/image.js"></script>
+<%- include("templates/headerEnd") %> 
+
+<script type="text/javascript"> 
+    $.cloudinary.config({ cloud_name: '<%= process.env.CLOUDINARY_CLOUD_NAME %>', secure: true});
+</script>
+
+<%- include("templates/navBar") %> 
+    <span class="spacer"></span>
+    <div class="container">
+        <div class="title-section">
+            <h1>Images</h1>
+            <% if (loggedin){ %>
+                <button class="create-img" onclick="showCreateModal()">Create Image</button>
+            <%} else {%>
+                <button class="login-btn" onclick="navigateToLogin()">Login to Create</button>
+            <%}%>
+        </div>
+        <% if (loggedin){ %>
+        <div class="line"></div>
+        <form class="create-img-form" action="/createImage" method="post" enctype="multipart/form-data">
+            <input id="image" class="file-input" type="file" name="image"/>  
+            <div class="field">
+                <button class="upload-btn">
+                    <span>Create</span>
+                </button>
+            </div>
+        </form>
+        <%}%>
+
+    </div>
+
+    
+
+    
+
+<%- include("templates/footer") %> 
