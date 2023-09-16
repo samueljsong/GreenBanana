@@ -98,15 +98,37 @@ app.get('/login', (req, res) => {
 })
 
 
-app.get('/profile', (req, res) => {
+function getHits(posts){
+    if(posts.length === 0) return 0;
+
+    let hits = 0;
+    for(let post in posts){
+        hits += posts[post].hits;
+    }
+    return hits;
+}
+
+app.get('/profile', async (req, res) => {
+
     if (!req.session.authenticated) {
         req.session.destroy();
         res.render("index", {loggedin: false});
     } else {
+
+        let allPosts = await db_query.getAllPosts({user_id: req.session.user_id});
+        let totalPosts = allPosts.image.length + allPosts.text.length + allPosts.url.length;
+        let totalHits = getHits(allPosts.image) + getHits(allPosts.text) + getHits(allPosts.url);
+
+        console.log(allPosts.image)
         res.render('profile', {
             loggedin: true,
             username: req.session.username,
             email: req.session.email,
+            imagePosts: allPosts.image,
+            urlPosts: allPosts.url,
+            textPosts: allPosts.text,
+            totalPosts: totalPosts,
+            totalHits: totalHits,
         });
     }
 })

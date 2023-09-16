@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="/css/animations.css">
     <script src="/scripts/profile.js"></script>
 <%- include("templates/headerEnd") %> 
+<script type="text/javascript"> 
+    $.cloudinary.config({ cloud_name: '<%= process.env.CLOUDINARY_CLOUD_NAME %>', secure: true});
+</script>
 
 <%- include("templates/navBar") %> 
 <span class="spacer"></span>
@@ -14,11 +17,11 @@
         <img class="profile-pic" src="/assets/cat.jpg" alt="none">
         <div class="stats-container">
             <div class="stats">
-                <p class="stats-num">123</p>
+                <p class="stats-num"><%= totalHits%></p>
                 <p>Hits</p>
             </div>
             <div class="stats">
-                <p class="stats-num">4</p>
+                <p class="stats-num"><%= totalPosts%></p>
                 <p>Posts</p>
             </div>
         </div>
@@ -43,13 +46,30 @@
             <div id="img" class="inactive" onclick="activate(id)"><img class="type" src="/assets/img.png" alt=""></div>
             <div id="txt" class="inactive" onclick="activate(id)"><img class="type" src="/assets/txt.png" alt=""></div>
         </div>
-        <div class="post-container">
-            <div class="post">1</div>
-            <div class="post">2</div>
-            <div class="post">3</div>
-            <div class="post">4</div>
-            <div class="post">5</div>
+
+        <div id="link-container" class="hide">
+            <%if(urlPosts.length === 0) {%>
+                <h3 class="hide">... No Posts</h3>
+            <%}%>
         </div>
+        <div id="img-container" class="hide">
+            <%if(imagePosts.length === 0) {%>
+                <h3 class="hide">... No Posts</h3>
+            <%}else{%>
+                <% for(let i = 0; i < imagePosts.length; i++) {%>
+                    <script>window.addEventListener('load', () => {
+                        createImagePostsAndAppend(`<%- imagePosts[i].url%>`, `img`, `<%- imagePosts[i].id%>`, `<%- imagePosts[i].public_id%>`, `<%- imagePosts[i].hits%>`);
+                        // document.write($.cloudinary.imageTag(`<%- imagePosts[i].public_id%>`, {height: 50, width:50}).toHtml());
+                    })</script>
+                <%}%>
+            <%}%>
+        </div>
+        <div id="txt-container" class="hide">
+            <%if(textPosts.length === 0) {%>
+                <h3 class="hide">... No Posts</h3>
+            <%}%>
+        </div>
+
     </div>
 
 </div>

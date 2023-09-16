@@ -10,8 +10,6 @@ let dbConfig = {
     database: process.env.MYSQL_NAME
 }
 
-console.log(dbConfig);
-
 let database = mysql.createPool(dbConfig);
 
 module.exports = database;
