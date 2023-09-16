@@ -1,0 +1,32 @@
+<%- include("templates/headerStart") %>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" href="/css/post.css">
+<link rel="stylesheet" href="/css/animations.css">
+<script src="/scripts/post.js"></script>
+<%- include("templates/headerEnd") %> 
+
+<%- include("templates/navBar") %> 
+
+    
+
+    <div class="container">
+        <div class="post-information">
+            <div class="op">
+                <p class="op-text">OP:</p>
+                <p><%- postOwner%></p>
+            </div>
+            <div class="hits">
+                <img class="heart" src="/assets/heart.png" alt="">
+                <p><%- hits%></p>
+            </div>
+        </div>
+        <div class="img-container">
+            <img src="<%- url%>" alt="">
+        </div>
+        <div class="url-container">
+            <button class="url-btn"><></button>
+        </div>
+    </div>
+
+
+<%- include("templates/footer") %> 

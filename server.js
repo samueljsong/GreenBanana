@@ -97,6 +97,28 @@ app.get('/login', (req, res) => {
     }
 })
 
+app.get('/post/img/:id', async (req, res) => {
+    if (req.session.authenticated){
+        let imagePost = await db_query.hitAndGetImage({public_id: req.params.id});
+        let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
+        res.render('post', {
+            loggedin: true,
+            hits: imagePost.hits,
+            url: imagePost.url,
+            postOwner: userInfo.username
+        });
+    } else {
+        let imagePost = await db_query.hitAndGetImage({public_id: req.params.id});
+        let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
+        res.render('post', {
+            loggedin: false,
+            hits: imagePost.hits,
+            url: imagePost.url,
+            postOwner: userInfo.username
+        });
+    }
+})
+
 
 function getHits(posts){
     if(posts.length === 0) return 0;

@@ -9,23 +9,40 @@ function ImagePost(url, type, id, public_id, hits){
     let postCard = document.createElement('div');
     postCard.className = "post";
     postCard.classList.add('hide');
+    postCard.style.backgroundColor = 'black';
 
     let tempImage = document.createElement('img');
     tempImage.src = this.url;
     postCard.appendChild(tempImage);
 
+    let hitsContainer = document.createElement('div');
+    let hitsNumber = document.createElement('p');
+    let hitsImage = document.createElement('img');
+    hitsContainer.className = 'hitsContainer';
+    hitsNumber.innerText = hits;
+    hitsImage.src = '/assets/heart.png';
+    hitsContainer.appendChild(hitsImage);
+    hitsContainer.appendChild(hitsNumber);
+    hitsContainer.style.display = 'none';
+
+    postCard.appendChild(hitsContainer);
 
     //Assigning div card
     this.postCard = postCard;
-
+    
     // Opening image
     this.postCard.addEventListener('click', () => {
-        navigator.clipboard.writeText(this.url);
-        alert("Copied URL: " + this.url);
+        // navigator.clipboard.writeText(this.url);
+        // alert("Copied URL: " + this.url);
+        window.location.replace(`/post/${type}/${public_id}`);
     })
 
     this.postCard.addEventListener('mouseover', () => {
-        
+        hitsContainer.style.display = 'flex'
+    })
+
+    this.postCard.addEventListener('mouseleave', () => {
+        hitsContainer.style.display = 'none'
     })
 }
 

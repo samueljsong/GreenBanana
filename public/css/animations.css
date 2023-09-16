@@ -36,3 +36,11 @@
     }
 }
 
+@keyframes opacityDecrease{
+    0%{
+        filter: opacity(100%);
+    }
+    100%{
+        filter: opacity(40%);
+    }
+}

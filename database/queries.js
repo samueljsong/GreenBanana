@@ -60,91 +60,6 @@ async function createImage(postData){
     }
 }
 
-// async function getTotalPosts(postData){
-//     let getTotalImagePostsSQL = `
-//         SELECT COUNT(*)
-//         FROM images
-//         WHERE frn_user_id = (?);
-//     `
-
-//     let getTotalUrlPostsSQL = `
-//         SELECT COUNT(*)
-//         FROM url
-//         WHERE frn_user_id = (?);
-//     `
-
-//     let getTotalTextPostsSQL = `
-//         SELECT COUNT(*)
-//         FROM text
-//         WHERE frn_user_id = (?);
-//     `
-
-//     let param = [postData.user_id];
-
-//     try{
-//         const imgResult = await database.query(getTotalImagePostsSQL, param);
-//         const urlResult = await database.query(getTotalUrlPostsSQL, param);
-//         const textResult = await database.query(getTotalTextPostsSQL, param);
-        
-//         return imgResult[0][0]['COUNT(*)'] + urlResult[0][0]['COUNT(*)'] + textResult[0][0]['COUNT(*)'];
-//     }
-//     catch(err){
-//         console.log("Error in getting all hits");
-//         console.log(err);
-//     }
-// }
-
-// async function getTotalHits(postData){
-
-//     let getTotalImageHits = `
-//         SELECT SUM(hits)
-//         FROM images
-//         WHERE frn_user_id = (?);
-//     `
-
-//     let getTotalUrlHits = `
-//         SELECT SUM(hits)
-//         FROM url
-//         WHERE frn_user_id = (?);
-//     `
-
-//     let getTotalTextHits = `
-//         SELECT SUM(hits)
-//         FROM text
-//         WHERE frn_user_id = (?);
-//     `
-
-//     let param = [postData.user_id];
-
-//     try {
-//         const imgResult = await database.query(getTotalImageHits, param);
-//         const urlResult = await database.query(getTotalUrlHits, param);
-//         const textResult = await database.query(getTotalTextHits, param);
-//         let total = 0;
-
-//         if(textResult[0][0]['SUM(hits)'] !== null){
-//             total += parseInt(textResult[0][0]['SUM(hits)']);
-//         }
-
-//         if(imgResult[0][0]['SUM(hits)'] !== null){
-//             total += parseInt(imgResult[0][0]['SUM(hits)']);
-//         }
-
-//         if(urlResult[0][0]['SUM(hits)'] !== null){
-//             total += parseInt(urlResult[0][0]['SUM(hits)']);
-//         }
-
-//         // console.log(total);
-//         return total;
-
-//     }
-//     catch (err){
-//         console.log("Error in getting total hits")
-//         console.log(err);
-//     }
-    
-// }
-
 async function getAllPosts(postData){
     
     let getImagesSQL = `
@@ -185,7 +100,52 @@ async function getAllPosts(postData){
     }
 }
 
+async function hitAndGetImage(postData){
+    let increaseHitSQL = `
+        UPDATE images
+        SET hits = hits + 1
+        WHERE public_id = (?);
+    `
+
+    let getImageSQL = `
+        SELECT *
+        FROM images
+        WHERE public_id = (?);
+    `
+
+    let param = [postData.public_id];
+    try{
+        await database.query(increaseHitSQL, param);
+        let imagePost = await database.query(getImageSQL, param);
+        return imagePost[0][0];
+    }
+    catch(err){
+        console.log("Error in increasing hit and getting img");
+        console.log(err);
+    }
+}
+
+async function getPostOwner(postData){
+    let getPostOwnerSQL = `
+        SELECT * 
+        FROM user
+        WHERE user_id = (?);
+    `
+
+    let param = [postData.user_id];
+
+    try{
+        let userInfo = await database.query(getPostOwnerSQL, param);
+        console.log(userInfo);
+        return userInfo[0][0];
+    }
+    catch(err){
+        console.log('Could not get Post owner details');
+        console.log(err);
+    }
+}
+
 module.exports = {
     createUser, getUser, createImage,
-    getAllPosts
+    getAllPosts, hitAndGetImage, getPostOwner
 }
