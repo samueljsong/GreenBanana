@@ -320,7 +320,7 @@
     }
 
     .img-container img{
-        height: 32rem;
+        height: auto;
         width: 90%;
         object-fit: contain;
         background-color: #3746524f;
