@@ -144,7 +144,7 @@ body{
     padding: 10px;
     display: grid; 
     grid-template-columns: auto auto auto auto;
-    grid-gap: 10px;
+    grid-gap: 20px;
     justify-items: center;
 }
 
@@ -156,8 +156,14 @@ body{
     box-shadow: 0px 5px 10px 5px #0000001d;
 }
 
+.imagepost:hover{
+    animation: 0.3s greenBorder;
+    box-shadow: 0 0 10px #6ed9a0;
+    animation-fill-mode: forwards;
+}
+
 .imgcont {
-    height: 80%;
+    height: 85%;
     width: 100%;
 }
 
@@ -165,4 +171,8 @@ body{
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.imginfo {
+    margin: 10px;
 }
