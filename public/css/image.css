@@ -99,7 +99,8 @@
     }
     
     .imginfo {
-        margin: 10px;
+        margin: 5vw;
+        font-size: 5vw;
     }
 
 }
@@ -205,7 +206,8 @@
     }
     
     .imginfo {
-        margin: 10px;
+        margin: 1.25vw;
+        font-size: 1.25vw;
     }
 
 }
@@ -288,8 +290,10 @@
         width: 95%;
         aspect-ratio: 1/1;
         overflow: hidden;
+        border: solid 1px #00000000;
         box-shadow: 0px 5px 10px 5px #0000001d;
         margin-bottom: 20px;
+        cursor: pointer;
     }
     
     .imagepost:hover{
@@ -310,7 +314,8 @@
     }
     
     .imginfo {
-        margin: 10px;
+        margin: 1vw;
+        font-size: 1vw;
     }
 
 }
