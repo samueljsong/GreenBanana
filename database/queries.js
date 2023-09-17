@@ -145,7 +145,29 @@ async function getPostOwner(postData){
     }
 }
 
+async function getAllImages(){
+    
+    let getImagesSQL = `
+        SELECT image_id, user_id, url, public_id, hits, username
+        FROM images
+        JOIN user 
+        on user_id = frn_user_id;
+    `
+
+    try {
+        let imagePosts = await database.query(getImagesSQL);
+
+        let images = imagePosts[0];
+
+        return images;
+    }
+    catch(err){
+        console.log("Error in getting images");
+        console.log(err);
+    }
+}
+
 module.exports = {
     createUser, getUser, createImage,
-    getAllPosts, hitAndGetImage, getPostOwner
+    getAllPosts, hitAndGetImage, getPostOwner, getAllImages
 }

@@ -156,14 +156,18 @@ app.get('/profile', async (req, res) => {
 })
 
 
-app.get('/image', (req, res) => {
+app.get('/image', async (req, res) => {
+    let allImages = await db_query.getAllImages();
+
+    console.log(allImages)
     if (!req.session.authenticated){
-        res.render("image", {loggedin: false});
+        res.render("image", {loggedin: false, imagePosts: allImages});
     } else {
         res.render('image', {
             loggedin: true,
             username: req.session.username,
-            email: req.session.email
+            email: req.session.email,
+            imagePosts: allImages
         })
     }
 })

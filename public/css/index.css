@@ -15,13 +15,13 @@ h1 {
     text-align: center;
 }
 
-#mainbtns {
+#mainbtncontainer {
     grid-row-start: 3;
     display: grid;
     grid-template-columns: auto 125px 50px 125px 50px 125px auto;
 }
 
-button {
+.mainbtn {
     color: #ffffff;
     background-color: #6ed9a0;
     border-radius: 4px;
@@ -31,7 +31,7 @@ button {
     font-family: Roboto;
 }
 
-button:hover {
+.mainbtn:hover {
     animation: 0.3s buttonGlow;
     animation-fill-mode: forwards;
 }
