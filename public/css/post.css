@@ -74,10 +74,12 @@
         display: grid;
         place-items: center;
         background-color: transparent;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 
     .img-container img{
-        height: 90%;
+        height: auto;
         width: 90%;
         object-fit: contain;
         background-color: #3746524f;
@@ -195,10 +197,12 @@
         display: grid;
         place-items: center;
         background-color: transparent;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 
     .img-container img{
-        height: 90%;
+        height: auto;
         width: 90%;
         object-fit: contain;
         background-color: #3746524f;
@@ -311,10 +315,12 @@
         display: grid;
         place-items: center;
         background-color: transparent;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
 
     .img-container img{
-        height: 90%;
+        height: auto;
         width: 90%;
         object-fit: contain;
         background-color: #3746524f;
