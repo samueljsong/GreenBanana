@@ -478,12 +478,12 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
 
     .stats-num{
         color: #6ed9a0;
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 
     .mid-section{
@@ -659,7 +659,7 @@
     }
 
     .hitsContainer p{
-        font-size: 1.3rem;
+        font-size: 1rem;
         background:transparent
     }
 

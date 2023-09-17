@@ -18,6 +18,19 @@
     }
 }
 
+@keyframes turnWhite{
+    0% {
+        box-shadow: none;
+        border: solid 1px #6ed9a0;
+        color: #6ed9a0;
+    }
+    100%{
+        color: #ffffff;
+        border: solid 1px #ffffff;
+        box-shadow: 0 0 10px #ffffff;
+    }
+}
+
 @keyframes underline{
     0%{
         border-bottom: solid 1px transparent;

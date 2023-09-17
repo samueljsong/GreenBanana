@@ -7,26 +7,26 @@
 
 <%- include("templates/navBar") %> 
 
-    
+    <span class="spacer"></span>
 
     <div class="container">
         <div class="post-information">
-            <div class="op">
-                <p class="op-text">OP:</p>
-                <p><%- postOwner%></p>
-            </div>
-            <div class="hits">
-                <img class="heart" src="/assets/heart.png" alt="">
-                <p><%- hits%></p>
+            <img class="profile-pic" src="/assets/cat.jpg" alt="">
+            <div class="user-info">
+                <p class="username">@<%- postOwner%></p>
+                <p class="views"><%- hits%> Views</p>
             </div>
         </div>
+        <span class="line"></span>
         <div class="img-container">
-            <img src="<%- url%>" alt="">
+            <img class="post-img" src="<%- url%>" alt="">
         </div>
         <div class="url-container">
-            <button class="url-btn"><></button>
+            <button onclick="copyWindowUrl()" class="url-btn">Copy Url <></button>
+            <button class="new-tab-btn" onclick="window.open(`<%- url%>`, '_blank')">Open in new tab</button>
         </div>
     </div>
+    <span class="spacer"></span>
 
 
 <%- include("templates/footer") %> 
