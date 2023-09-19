@@ -148,10 +148,11 @@ async function getPostOwner(postData){
 async function getAllImages(){
     
     let getImagesSQL = `
-        SELECT image_id, user_id, url, public_id, hits, username
+        SELECT image_id, url, public_id, hits, username
         FROM images
         JOIN user 
-        on user_id = frn_user_id;
+        on user_id = frn_user_id
+        ORDER BY image_id ASC;
     `
 
     try {

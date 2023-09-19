@@ -172,6 +172,14 @@ app.get('/image', async (req, res) => {
     }
 })
 
+app.get('/404', (req,res) => {
+    res.status(404);
+	res.render("404", {loggedin: false});
+})
+
+app.get("*", (req,res) => {
+    res.redirect("/404")
+})
 
 
 // Util functions

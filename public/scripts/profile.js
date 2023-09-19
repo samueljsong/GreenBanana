@@ -34,7 +34,7 @@ function ImagePost(url, type, id, public_id, hits){
     this.postCard.addEventListener('click', () => {
         // navigator.clipboard.writeText(this.url);
         // alert("Copied URL: " + this.url);
-        window.location.replace(`/post/${type}/${public_id}`);
+        window.location.href = `/post/${type}/${public_id}`;
     })
 
     this.postCard.addEventListener('mouseover', () => {
