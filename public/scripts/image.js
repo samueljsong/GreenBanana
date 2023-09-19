@@ -1,7 +1,13 @@
 function navigateToLogin () {
-    window.location.href = '/login'
+    window.location.href = '/login';
 }
 
 function showCreateModal() {
-    document.getElementById("blackout").style.display = 'block';
+    var modal = document.getElementById("backdrop");
+    modal.style.display = "block";
+}
+
+function showCloseModal() {
+    var modal = document.getElementById("backdrop");
+    modal.style.display = "none";
 }

@@ -19,16 +19,21 @@
             <button class="login-btn" onclick="navigateToLogin()">Login to Create</button>
         <%}%>
     </div>
+    <div class="line"></div>
     <% if (loggedin){ %>
-        <div class="line"></div>
-        <form class="create-img-form" action="/createImage" method="post" enctype="multipart/form-data">
-            <input id="image" class="file-input" type="file" name="image"/>  
-            <div class="field">
-                <button class="upload-btn">
-                    <span>Create</span>
-                </button>
+        <div id="backdrop" onclick="showCloseModal()">
+            <div id="formcont">
+                <h2>Select an image</h2>
+                <form class="create-img-form" action="/createImage" method="post" enctype="multipart/form-data">
+                    <input id="image" class="file-input" type="file" name="image"/>  
+                    <div class="field">
+                        <button class="upload-btn">
+                            Create
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     <%}%>
 </div>
 
