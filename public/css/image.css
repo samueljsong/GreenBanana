@@ -74,6 +74,7 @@
     }
 
     #formcont {
+        display: none;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -85,7 +86,6 @@
         backdrop-filter: blur(5px);
         box-shadow: 0px 5px 10px 5px #0000001d;
         border-radius: 10px;
-        display: none;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -253,6 +253,7 @@
     }
 
     #formcont {
+        display: none;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -264,7 +265,6 @@
         backdrop-filter: blur(5px);
         box-shadow: 0px 5px 10px 5px #0000001d;
         border-radius: 10px;
-        display: none;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -431,6 +431,7 @@
     }
 
     #formcont {
+        display: none;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -442,7 +443,6 @@
         backdrop-filter: blur(5px);
         box-shadow: 0px 5px 10px 5px #0000001d;
         border-radius: 10px;
-        display: none;
         justify-content: center;
         align-items: center;
         flex-direction: column;
