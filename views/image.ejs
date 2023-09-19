@@ -14,25 +14,25 @@
     <div class="title-section">
         <h1>Images</h1>
         <% if (loggedin){ %>
-            <button class="create-img" onclick="showCreateModal()">Create Image</button>
+            <button class="create-img" onclick="openModal()">Create Image</button>
         <%} else {%>
             <button class="login-btn" onclick="navigateToLogin()">Login to Create</button>
         <%}%>
     </div>
     <div class="line"></div>
     <% if (loggedin){ %>
-        <div id="backdrop" onclick="showCloseModal()">
-            <div id="formcont">
-                <h2>Select an image</h2>
-                <form class="create-img-form" action="/createImage" method="post" enctype="multipart/form-data">
-                    <input id="image" class="file-input" type="file" name="image"/>  
-                    <div class="field">
-                        <button class="upload-btn">
-                            Create
-                        </button>
-                    </div>
-                </form>
-            </div>
+        <div id="backdrop" onclick="closeModal()">
+        </div>
+        <div id="formcont" class="imgmodal">
+            <h2>Select an image</h2>
+            <form class="create-img-form imgmodal" action="/createImage" method="post" enctype="multipart/form-data">
+                <input id="image" class="file-input imgmodal" type="file" name="image"/>  
+                <div class="field imgmodal">
+                    <button class="upload-btn imgmodal">
+                        Create
+                    </button>
+                </div>
+            </form>
         </div>
     <%}%>
 </div>

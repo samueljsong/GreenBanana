@@ -2,12 +2,16 @@ function navigateToLogin () {
     window.location.href = '/login';
 }
 
-function showCreateModal() {
-    var modal = document.getElementById("backdrop");
-    modal.style.display = "block";
+function openModal() {
+    var backdrop = document.getElementById("backdrop");
+    backdrop.style.display = "block";
+    var modal = document.getElementById("formcont");
+    modal.style.display = "flex";
 }
 
-function showCloseModal() {
-    var modal = document.getElementById("backdrop");
+function closeModal() {
+    var backdrop = document.getElementById("backdrop");
+    backdrop.style.display = "none";
+    var modal = document.getElementById("formcont");
     modal.style.display = "none";
 }
