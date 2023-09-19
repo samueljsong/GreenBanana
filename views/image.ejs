@@ -34,15 +34,15 @@
 
 <div class="posts">
     <% imagePosts.forEach((image)=> { %>
-        <div class="imagepost">
+        <a class="imagepost" href="/post/img/<%- image.public_id%>">
             <div class="imgcont">
                 <img src="<%- image.url%>">
             </div>
             <div class="imginfo">
-                <p>Uploader: <%- image.username%></p>
+                <p>@<%- image.username%></p>
                 <p>Hits: <%- image.hits%></p>
             </div>
-        </div>
+        </a>
     <% }) %>
 </div>
 
