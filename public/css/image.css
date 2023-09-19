@@ -85,7 +85,7 @@
         backdrop-filter: blur(5px);
         box-shadow: 0px 5px 10px 5px #0000001d;
         border-radius: 10px;
-        display: flex;
+        display: none;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -264,7 +264,7 @@
         backdrop-filter: blur(5px);
         box-shadow: 0px 5px 10px 5px #0000001d;
         border-radius: 10px;
-        display: flex;
+        display: none;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -442,7 +442,7 @@
         backdrop-filter: blur(5px);
         box-shadow: 0px 5px 10px 5px #0000001d;
         border-radius: 10px;
-        display: flex;
+        display: none;
         justify-content: center;
         align-items: center;
         flex-direction: column;
