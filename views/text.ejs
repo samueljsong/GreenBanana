@@ -10,6 +10,31 @@
 <span class="spacer"></span>
 
 <div class="container">
+    <div class="left-container">
+        <div class="tech-container" for="html">
+            <img class="tech-icon" src="/assets/html.png" alt="">
+            <p>html</p>
+        </div>
+        <textarea name="html" id="html-code" cols="30" rows="10" class="html" spellcheck="false"
+        onkeyup="runCode()"></textarea>
+        <div class="tech-container" for="css">
+            <img class="tech-icon" src="/assets/css.png" alt="">
+            <p>css</p>
+        </div>
+        <textarea name="css" id="css-code" cols="30" rows="10" class="css" spellcheck="false"
+        onkeyup="runCode()"></textarea>
+        <div class="tech-container" for="js">
+            <img class="tech-icon" src="/assets/js.png" alt="">
+            <p>js</p>
+        </div>
+        <textarea name="js" id="js-code" cols="30" rows="10" class="js" spellcheck="false"
+        onkeyup="runCode()"></textarea>
+    </div>
+
+    <div class="right-container">
+
+        <iframe id="output"></iframe>
+    </div>
 
 </div>
 

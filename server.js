@@ -172,6 +172,14 @@ app.get('/image', async (req, res) => {
     }
 })
 
+app.get('/text', async(req, res) => {
+    if(!req.session.authenticated){
+        res.render("text", {loggedin: false});
+    } else {
+        res.render("text", {loggedin: true});
+    }
+})
+    
 app.get('/404', (req,res) => {
     res.status(404);
 	res.render("404", {loggedin: false});
