@@ -1,42 +1,40 @@
 
-@media only screen and (max-width: 480px){
-
-}
-
-@media only screen and (min-width: 481px){
-
-}
-
-@media only screen and (min-width: 1121px){
-    *{
-        margin: 0;
-    }
-    
+@media only screen and (max-width: 770px){
     body{
-        height: 100vh;
+        height: auto;
         width: 100%;
         display: grid;
         place-items: center;
     }
     
     .container{
-        height: 90%;
-        width: 90%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .left-container{
-        grid-column-start: 1    ;
+        height: auto;
+        width: 100%;
         display: flex;
+        align-items: center;
         flex-direction: column;
-        justify-content: space-around;
-        height: 100%;
-        width: 90%;
+        gap: 2rem;
+    }
+
+    .btn-container{
+        height: 3rem;
+        width: 8rem;
+        display: grid;
+    }
+
+    .save-btn{
+        align-self: end;
+        justify-self: end;
+        height: 70%;
+        width: 8rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #6ed9a0;
+        color: white;
+        cursor: pointer;
     }
     
-    .right-container{
-        grid-column-start: 2;
+    .output-container{
         display: grid;
         width: 100%;
         height: 100%;
@@ -49,6 +47,7 @@
         border: none;
         box-shadow:0 0 20px #00000033;
         background-color: #00000033;
+        height: 90%;
     }
 
     textarea:focus{
@@ -56,7 +55,122 @@
     }
     
     #output{
+        width: 100%;
+        height: 30rem;
+        background-color: #ffffff;
+        box-shadow:0 0 20px #00000033;
+        border: none;
+    }  
+
+    .tech-container{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        width: 100%;
+        height: 10%;
+    }
+
+    .html-container{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
         width: 90%;
+        height: 90%;
+    }
+
+    .css-container{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 90%;
+        height: 90%;
+    }
+
+    .js-container{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 90%;
+        height: 90%;
+    }
+
+    .tech-icon{
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .spacer{
+        display: grid;
+        height: 2rem;
+        width: 100%;
+    }
+
+}
+
+@media only screen and (min-width: 771px){
+    
+    body{
+        height: 100vh;
+        width: 100%;
+        display: grid;
+        place-items: center;
+    }
+    
+    .container{
+        height: 100%;
+        width: 100%;
+        display: grid;
+        place-items: center;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 3rem 3rem 1fr 1fr;
+    }
+
+    .btn-container{
+        grid-column-start: 3;
+        grid-row-start: 2;
+        height: 100%;
+        width: 90%;
+        display: grid;
+    }
+
+    .save-btn{
+        align-self: end;
+        justify-self: end;
+        height: 70%;
+        width: 8rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #6ed9a0;
+        color: white;
+        cursor: pointer;
+    }
+    
+    .output-container{
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 4;
+        grid-row-end: 5;
+        display: grid;
+        width: 100%;
+        height: 100%;
+        place-items: center;
+    }
+
+    textarea{
+        resize: none;
+        padding: 1rem;
+        border: none;
+        box-shadow:0 0 20px #00000033;
+        background-color: #00000033;
+        height: 90%;
+    }
+
+    textarea:focus{
+        outline: none;
+    }
+    
+    #output{
+        width: 100%;
         height: 100%;
         background-color: #ffffff;
         box-shadow:0 0 20px #00000033;
@@ -67,10 +181,43 @@
         display: flex;
         gap: 1rem;
         align-items: center;
+        width: 100%;
+        height: 10%;
+    }
+
+    .html-container{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: 90%;
+        grid-column-start: 1;
+        grid-row-start: 3;
+    }
+
+    .css-container{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: 90%;
+        grid-column-start: 2;
+        grid-row-start: 3;
+    }
+
+    .js-container{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: 90%;
+        grid-column-start: 3;
+        grid-row-start: 3;
     }
 
     .tech-icon{
         height: 2rem;
         width: 2rem;
+    }
+
+    .spacer{
+        display: none;
     }
 }

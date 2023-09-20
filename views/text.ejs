@@ -7,23 +7,32 @@
 
 <%- include("templates/navBar") %> 
 
-<span class="spacer"></span>
-
 <div class="container">
-    <div class="left-container">
-        <div class="tech-container" for="html">
+    <span class="spacer"></span>
+    <div class="btn-container">
+        <button class="save-btn">Save Your Work</button>
+    </div>
+        
+    <div class="html-container " for="html">
+        <div class="tech-container">
             <img class="tech-icon" src="/assets/html.png" alt="">
             <p>html</p>
         </div>
         <textarea name="html" id="html-code" cols="30" rows="10" class="html" spellcheck="false"
         onkeyup="runCode()"></textarea>
-        <div class="tech-container" for="css">
+    </div>
+
+    <div class="css-container" for="css">
+        <div class="tech-container">
             <img class="tech-icon" src="/assets/css.png" alt="">
             <p>css</p>
         </div>
         <textarea name="css" id="css-code" cols="30" rows="10" class="css" spellcheck="false"
         onkeyup="runCode()"></textarea>
-        <div class="tech-container" for="js">
+    </div>
+
+    <div class="js-container " for="js">
+        <div class="tech-container">
             <img class="tech-icon" src="/assets/js.png" alt="">
             <p>js</p>
         </div>
@@ -31,13 +40,10 @@
         onkeyup="runCode()"></textarea>
     </div>
 
-    <div class="right-container">
-
+    <div class="output-container">
         <iframe id="output"></iframe>
     </div>
 
 </div>
-
-<span class="spacer"></span>
 
 <%- include("templates/footer") %> 
