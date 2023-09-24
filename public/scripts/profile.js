@@ -46,10 +46,76 @@ function ImagePost(url, type, id, public_id, hits){
     })
 }
 
+function TextPost(hits, html, css, js, text_id){
+    this.hits = hits;
+    this.html = html;
+    this.css = css;
+    this.js = js;
+    this.text_id = text_id;
+    // Creating div card
+    let postCard = document.createElement('div');
+    postCard.className = 'text-container'
+    let iframe = document.createElement('iframe');
+    iframe.style.height = '90%'
+    iframe.style.width = '65%'
+    iframe.style.backgroundColor = 'white'
+    iframe.className = "output";
+    this.outputElement = iframe;
+
+    // editing ui
+    let hitsContainer = document.createElement('div');
+    let hitsNumber = document.createElement('p');
+    let hitsImage = document.createElement('img');
+    hitsContainer.className = 'post-hits-container';
+    hitsNumber.innerText = this.hits;
+    hitsImage.src = '/assets/heart.png';
+    hitsContainer.appendChild(hitsImage);
+    hitsContainer.appendChild(hitsNumber);
+
+    let editContainer = document.createElement('div');
+    editContainer.className = 'edit-container'
+    let editButton = document.createElement('button');
+    editButton.innerText = 'EDIT'
+    let deleteButton = document.createElement('button');
+    deleteButton.innerText = 'DELETE'
+
+    editContainer.appendChild(hitsContainer);
+    editContainer.appendChild(editButton);
+    editContainer.appendChild(deleteButton);
+
+    postCard.className = "post text-post";
+    postCard.classList.add('hide');
+    // postCard.style.backgroundColor = 'black';
+
+    postCard.appendChild(iframe);
+    postCard.appendChild(editContainer);
+    //Assigning div card
+    this.postCard = postCard;
+
+    editButton.addEventListener('click', () => {
+        window.location.href = `/post/text/${this.text_id}`;
+    })
+
+    deleteButton.addEventListener('click', async () => {
+        await fetch(`/post/text/${this.text_id}/delete`, {
+            method: 'post'
+        })
+        .then(location.replace(window.location.href))
+    })
+}
+
+
 function createImagePostsAndAppend(url, type, id, public_id, hits){
     let tempCard = new ImagePost(url, type, id, public_id, hits);
     document.getElementById('img-container').appendChild(tempCard.postCard);
 }
+
+function createTextPostsAndAppend(hits, html, css, js, text_id){
+    let tempCard = new TextPost(hits, html, css, js, text_id);
+    document.getElementById('txt-container').appendChild(tempCard.postCard);
+    tempCard.outputElement.contentDocument.body.innerHTML = tempCard.html + "<style>" + tempCard.css + "</style>"
+}
+
 
 function activate(id) {
     type = ['link', 'txt', 'img'];

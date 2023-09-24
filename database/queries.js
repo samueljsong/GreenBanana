@@ -168,7 +168,109 @@ async function getAllImages(){
     }
 }
 
+//Text Queries
+
+async function createText(postData) {
+
+    let createTextSQL = `
+        INSERT INTO text (text_id, frn_user_id, frn_type_id, html, css, js)
+        VALUES (?, ?, ?, ?, ?, ?);
+    `
+    let param = [postData.text_id, postData.user_id, 1, postData.html, postData.css, postData.js];
+
+    try {
+        let results = await database.query(createTextSQL, param);
+    }catch(err){
+        console.log(err);
+    }
+}
+
+async function isOwner(postData){
+    let checkIfOwnerSQL = `
+        SELECT frn_user_id 
+        FROM text
+        WHERE text_id = (?);
+    `
+
+    let param = [postData.text_id];
+
+    try {
+        let results = await database.query(checkIfOwnerSQL, param);
+        return results[0][0];
+    } catch (err){
+        console.log(err);
+    }
+}
+
+async function getTextDetails(postData){
+    let getDetailsSQL = `
+        SELECT *
+        FROM text
+        WHERE text_id = (?);
+    `
+
+    let param = [postData.text_id];
+
+    try{
+        let textDetails = await database.query(getDetailsSQL, param);
+        return textDetails[0][0];
+    } catch (err) {
+        return false;
+    }
+}
+
+async function saveTextDetails(postData){
+    let saveDetailsSQL = `
+        UPDATE text
+        SET html = (?), css = (?), js = (?)
+        WHERE text_id = (?);
+    `
+
+    let param = [postData.html, postData.css, postData.js, postData.text_id];
+
+    try{
+        let results = await database.query(saveDetailsSQL, param);
+    } catch (err){
+        console.log(err);
+    }
+}
+
+async function increaseTextHits(postData){
+    let increaseHitSQL = `
+        UPDATE text
+        SET hits = hits + 1
+        WHERE text_id = (?);
+    `
+
+    let param = [postData.text_id];
+
+    try {
+        let result = await database.query(increaseHitSQL, param);
+        
+    } catch (err){
+        console.log(err);
+    }
+
+}
+
+async function deleteText(postData){
+    let deleteTextSQL = `
+        DELETE FROM text
+        WHERE text_id = (?);
+    `
+
+    let param = [postData.text_id];
+
+    try {
+        let result = await database.query(deleteTextSQL, param);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports = {
     createUser, getUser, createImage,
-    getAllPosts, hitAndGetImage, getPostOwner, getAllImages
+    getAllPosts, hitAndGetImage, getPostOwner, getAllImages,
+    createText, isOwner, getTextDetails, saveTextDetails,
+    increaseTextHits, deleteText
 }

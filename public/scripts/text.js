@@ -1,11 +1,19 @@
+
+
 function runCode () {
     let htmlCode = document.getElementById('html-code');
     let cssCode = document.getElementById('css-code');
     let jsCode = document.getElementById('js-code');
 
     let output = document.getElementById('output').contentDocument;
-    output.body.innerHTML = htmlCode.value + "<style>" + cssCode.value + "</style>";
-    output.contentWindow.eval(jsCode.value);
+    output.body.innerHTML = "<script>" + jsCode.value + "</script>" + htmlCode.value + "<style>" + cssCode.value + "</style>";
+    // try{
+    //     eval(jsCode.value);
+    //     output.contentDocument.eval(jsCode.value);
+    // } catch (err) {
+    //     console.log("fix your js")
+    // }
+    // output.contentWindow.eval(jsCode.value);
 }
 
 function enableTab (element) {
@@ -23,6 +31,8 @@ function enableTab (element) {
 }
 
 window.addEventListener('load', () => {
+    runCode();
+
     let htmlField = document.getElementById('html-code');
     let cssField = document.getElementById('css-code');
     let jsField = document.getElementById('js-code');
@@ -30,3 +40,8 @@ window.addEventListener('load', () => {
     enableTab(cssField);
     enableTab(jsField);
 })
+
+function copyUrl() {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Copied URL: " + window.location.href);
+}

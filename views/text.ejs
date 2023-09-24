@@ -7,19 +7,29 @@
 
 <%- include("templates/navBar") %> 
 
-<div class="container">
+<form class="container" action="/saveWork" method="post">
     <span class="spacer"></span>
-    <div class="btn-container">
-        <button class="save-btn">Save Your Work</button>
+    <div class="btns-container">
+        <div class="url-container">
+            <button class="url-button" type="button" onclick="copyUrl()">Copy URL</button>
+        </div>
+        <% if(owner){%>
+        <div class="btn-container" >
+            <button class="save-btn" type="submit">Save Your Work</button>
+        </div>
+        <%}%>
     </div>
+
+    <textarea class="invisible" name="text_id"><%- text_id%></textarea>
         
+    <%if(owner){%>
     <div class="html-container " for="html">
         <div class="tech-container">
             <img class="tech-icon" src="/assets/html.png" alt="">
             <p>html</p>
         </div>
         <textarea name="html" id="html-code" cols="30" rows="10" class="html" spellcheck="false"
-        onkeyup="runCode()"></textarea>
+        onkeyup="runCode()"><%- html%></textarea>
     </div>
 
     <div class="css-container" for="css">
@@ -28,7 +38,7 @@
             <p>css</p>
         </div>
         <textarea name="css" id="css-code" cols="30" rows="10" class="css" spellcheck="false"
-        onkeyup="runCode()"></textarea>
+        onkeyup="runCode()"><%- css%></textarea>
     </div>
 
     <div class="js-container " for="js">
@@ -37,13 +47,42 @@
             <p>js</p>
         </div>
         <textarea name="js" id="js-code" cols="30" rows="10" class="js" spellcheck="false"
-        onkeyup="runCode()"></textarea>
+        onkeyup="runCode()"><%- js%></textarea>
     </div>
+
+    <%} else {%>
+    <div class="html-container" for="html">
+        <div class="tech-container">
+            <img class="tech-icon" src="/assets/html.png" alt="">
+            <p>html</p>
+        </div>
+        <textarea readonly name="html" id="html-code" cols="30" rows="10" class="html" spellcheck="false"
+        ><%- html%></textarea>
+    </div>
+
+    <div class="css-container" for="css">
+        <div class="tech-container">
+            <img class="tech-icon" src="/assets/css.png" alt="">
+            <p>css</p>
+        </div>
+        <textarea name="css" id="css-code" cols="30" rows="10" class="css" spellcheck="false"
+        readonly><%- css%></textarea>
+    </div>
+
+    <div class="js-container " for="js">
+        <div class="tech-container">
+            <img class="tech-icon" src="/assets/js.png" alt="">
+            <p>js</p>
+        </div>
+        <textarea name="js" id="js-code" cols="30" rows="10" class="js" spellcheck="false"
+        readonly><%- js%></textarea>
+    </div>
+    <%}%>
 
     <div class="output-container">
         <iframe id="output"></iframe>
     </div>
 
-</div>
+</form>
 
 <%- include("templates/footer") %> 

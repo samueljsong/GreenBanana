@@ -16,13 +16,21 @@
         gap: 2rem;
     }
 
-    .btn-container{
+    .btns-container{
+        display: flex;
+        width: 90%;
+        justify-content: space-between;
+    }
+
+    .btn-container,
+    .url-container{
         height: 3rem;
         width: 8rem;
         display: grid;
     }
 
-    .save-btn{
+    .save-btn,
+    .url-button{
         align-self: end;
         justify-self: end;
         height: 70%;
@@ -105,6 +113,10 @@
         width: 100%;
     }
 
+    .invisible{
+        display: none;
+    }
+
 }
 
 @media only screen and (min-width: 771px){
@@ -125,12 +137,41 @@
         grid-template-rows: 3rem 3rem 1fr 1fr;
     }
 
+    .btns-container{
+        display: flex;
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        height: 100%;
+        width: 95%;
+    }
+
     .btn-container{
         grid-column-start: 3;
         grid-row-start: 2;
         height: 100%;
         width: 90%;
         display: grid;
+    }
+
+    .url-container{
+        grid-column-start: 1;
+        grid-row-start: 2;
+        height: 100%;
+        width: 90%;
+        display: grid;
+    }
+
+    .url-button{
+        align-self: end;
+
+        height: 70%;
+        width: 8rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #6ed9a0;
+        color: white;
+        cursor: pointer;
     }
 
     .save-btn{
@@ -218,6 +259,10 @@
     }
 
     .spacer{
+        display: none;
+    }
+
+    .invisible{
         display: none;
     }
 }

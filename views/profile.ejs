@@ -59,7 +59,6 @@
                 <% for(let i = 0; i < imagePosts.length; i++) {%>
                     <script>window.addEventListener('load', () => {
                         createImagePostsAndAppend(`<%- imagePosts[i].url%>`, `img`, `<%- imagePosts[i].id%>`, `<%- imagePosts[i].public_id%>`, `<%- imagePosts[i].hits%>`);
-                        // document.write($.cloudinary.imageTag(`<%- imagePosts[i].public_id%>`, {height: 50, width:50}).toHtml());
                     })</script>
                 <%}%>
             <%}%>
@@ -67,6 +66,13 @@
         <div id="txt-container" class="hide">
             <%if(textPosts.length === 0) {%>
                 <h3 class="hide">... No Posts</h3>
+            <%} else {%>
+                <% for(let i = 0; i < textPosts.length; i++) {%>
+                    <script>window.addEventListener('load', () => {
+                        createTextPostsAndAppend(`<%- textPosts[i].hits%>`, `<%- textPosts[i].html%>`, `<%- textPosts[i].css%>` ,`<%- textPosts[i].js%>`, `<%- textPosts[i].text_id%>`);
+                    });
+                    </script>
+                <%}%>
             <%}%>
         </div>
 

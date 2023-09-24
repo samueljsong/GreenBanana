@@ -141,7 +141,6 @@ app.get('/profile', async (req, res) => {
         let totalPosts = allPosts.image.length + allPosts.text.length + allPosts.url.length;
         let totalHits = getHits(allPosts.image) + getHits(allPosts.text) + getHits(allPosts.url);
 
-        console.log(allPosts.image)
         res.render('profile', {
             loggedin: true,
             username: req.session.username,
@@ -172,11 +171,63 @@ app.get('/image', async (req, res) => {
     }
 })
 
+// Text Routing
+
 app.get('/text', async(req, res) => {
     if(!req.session.authenticated){
-        res.render("text", {loggedin: false});
+        res.render("textLanding", {loggedin: false});
     } else {
-        res.render("text", {loggedin: true});
+        res.render("textLanding", {
+            loggedin: true,
+            user_id: req.session.user_id
+        });
+    }
+})
+
+app.post('/post/text/:id/delete', async (req, res) => {
+    
+    await db_query.deleteText({text_id: req.params.id})
+})
+
+app.get('/post/text/:id', async (req, res) => {
+
+    let textDetails = await db_query.getTextDetails({text_id: req.params.id});
+    if(textDetails === false){
+        res.render('/404', {loggedin: true})
+    }
+
+    if(!req.session.authenticated){
+        await db_query.increaseTextHits({text_id: req.params.id});
+        res.render("text", {
+            loggedin: false,
+            owner: false,
+            text_id: req.params.id,
+            html: textDetails.html,
+            css: textDetails.css,
+            js: textDetails.js
+        });
+    }else{
+        let result = await db_query.isOwner({text_id: req.params.id});
+        if(result.frn_user_id === req.session.user_id){
+            res.render('text', {
+                loggedin: true,
+                owner: true,
+                text_id: req.params.id,
+                html: textDetails.html,
+                css: textDetails.css,
+                js: textDetails.js
+            });
+        }else{
+            await db_query.increaseTextHits({text_id: req.params.id});
+            res.render('text',{
+                loggedin: true,
+                owner: false,
+                text_id: req.params.id,
+                html: textDetails.html,
+                css: textDetails.css,
+                js: textDetails.js
+            })
+        }
     }
 })
     
@@ -188,14 +239,6 @@ app.get('/404', (req,res) => {
 app.get("*", (req,res) => {
     res.redirect("/404")
 })
-
-
-// Util functions
-
-// function isValidSession(req){
-//     if(req.session.authenticated) return true;
-//     return false
-// }
 
 function containsUppercase(str){
     return /[A-Z]/.test(str);
@@ -314,6 +357,40 @@ app.post('/createImage', upload.single('image'), (req, res) => {
 
     res.redirect('/image')
 })
+
+//Text post
+
+app.post('/createText', async (req, res) => {
+    let newID = crypto.randomUUID();
+
+    await db_query.createText({
+        text_id: newID,
+        user_id: req.session.user_id,
+        html: '',
+        css:'',
+        js:''
+    })
+
+    res.redirect(`/post/text/${newID}`);
+})
+
+app.post('/saveWork', async (req, res) => {
+    let text_id = req.body.text_id;
+    let html = req.body.html;
+    let css = req.body.css;
+    let js = req.body.js;
+
+    let postData = {
+        html: html,
+        css: css,
+        js: js,
+        text_id: text_id
+    }
+
+    let result = await db_query.saveTextDetails(postData);
+    res.redirect(`/post/text/${text_id}`);
+})
+
 
 
 app.listen(PORT, async () => {

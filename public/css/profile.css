@@ -214,6 +214,48 @@
         font-size: 1rem;
         background:transparent
     }
+
+    .text-post{
+        width: 100%;
+        height: 7rem;
+        gap: 0.5rem;
+    }
+
+    .edit-container{
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        width: 30%;
+        height: 90%;
+    }
+
+    .edit-container button{
+        height: 85%;
+        border: none;
+        border-radius: 5px;
+        background-color: #6ed9a0;
+        color: white;
+        cursor: pointer;
+    }
+
+    .post-hits-container{
+        height: 100%;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .post-hits-container img{
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .output{
+        border-radius: 5px;
+        outline: none;
+        border: none;
+    }
     
 
 }
@@ -432,6 +474,48 @@
         font-size: 1.3rem;
         background:transparent
     }
+
+    .text-post{
+        width: 100%;
+        height: 10rem;
+        gap: 0.5rem;
+    }
+
+    .edit-container{
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        width: 30%;
+        height: 90%;
+    }
+
+    .edit-container button{
+        height: 85%;
+        border: none;
+        border-radius: 5px;
+        background-color: #6ed9a0;
+        color: white;
+        cursor: pointer;
+    }
+
+    .post-hits-container{
+        height: 100%;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .post-hits-container img{
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .output{
+        border-radius: 5px;
+        outline: none;
+        border: none;
+    }
 }
 
 @media only screen and (min-width: 1121px){
@@ -614,7 +698,8 @@
         display: flex;
         flex-wrap: wrap;
         height: auto;
-        width: 100%
+        width: 100%;
+        gap: 0.25rem;
     }
 
     .post:hover{
@@ -663,5 +748,46 @@
         background:transparent
     }
 
-    
+    .text-post{
+        width: 100%;
+        height: 15rem;
+        gap: 1rem;
+    }
+
+    .edit-container{
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        width: 30%;
+        height: 90%;
+    }
+
+    .edit-container button{
+        height: 85%;
+        border: none;
+        border-radius: 5px;
+        background-color: #6ed9a0;
+        color: white;
+        cursor: pointer;
+    }
+
+    .post-hits-container{
+        height: 100%;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .post-hits-container img{
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .output{
+        border-radius: 5px;
+        outline: none;
+        border: none;
+    }
+
 }
