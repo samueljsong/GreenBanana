@@ -113,7 +113,12 @@ function createImagePostsAndAppend(url, type, id, public_id, hits){
 function createTextPostsAndAppend(hits, html, css, js, text_id){
     let tempCard = new TextPost(hits, html, css, js, text_id);
     document.getElementById('txt-container').appendChild(tempCard.postCard);
-    tempCard.outputElement.contentDocument.body.innerHTML = tempCard.html + "<style>" + tempCard.css + "</style>"
+    tempCard.outputElement.contentDocument.body.innerHTML = tempCard.html + "<style>" +
+    `
+    *{
+        overflow: hidden;
+    }
+    ` +  tempCard.css + "</style>"
 }
 
 

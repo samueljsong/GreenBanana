@@ -140,14 +140,24 @@ app.get('/profile', async (req, res) => {
         let allPosts = await db_query.getAllPosts({user_id: req.session.user_id});
         let totalPosts = allPosts.image.length + allPosts.text.length + allPosts.url.length;
         let totalHits = getHits(allPosts.image) + getHits(allPosts.text) + getHits(allPosts.url);
+        
+        //separate the different types of post and sort by date
+
+        let textPosts = allPosts.text.sort((a,b) => {
+            return b.date_created - a.date_created;
+        })
+
+        let imagePosts = allPosts.image.sort((a,b) => {
+            return b.date_created - a.date_created;
+        })
 
         res.render('profile', {
             loggedin: true,
             username: req.session.username,
             email: req.session.email,
-            imagePosts: allPosts.image,
+            imagePosts: imagePosts,
             urlPosts: allPosts.url,
-            textPosts: allPosts.text,
+            textPosts: textPosts,
             totalPosts: totalPosts,
             totalHits: totalHits,
         });
@@ -351,7 +361,16 @@ app.post('/createImage', upload.single('image'), (req, res) => {
         let public_id = result.public_id;
         let url = result.url;
 
-        let results = await db_query.createImage({user_id: user_id, type_id: 2, url:url, public_id:public_id});
+        let date = new Date();
+        let dateString = date.toISOString().slice(0, 19).replace('T', ' ');
+
+        let results = await db_query.createImage({
+            user_id: user_id, 
+            type_id: 2, 
+            url:url, 
+            public_id:public_id,
+            date_created: dateString
+        });
 
     })
 
@@ -362,13 +381,16 @@ app.post('/createImage', upload.single('image'), (req, res) => {
 
 app.post('/createText', async (req, res) => {
     let newID = crypto.randomUUID();
+    let date = new Date();
+    let dateString = date.toISOString().slice(0, 19).replace('T', ' ');
 
     await db_query.createText({
         text_id: newID,
         user_id: req.session.user_id,
         html: '',
         css:'',
-        js:''
+        js:'',
+        date_created: dateString
     })
 
     res.redirect(`/post/text/${newID}`);

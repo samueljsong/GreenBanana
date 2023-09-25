@@ -45,11 +45,11 @@ async function getUser(postData){
 
 async function createImage(postData){
     let createImageSQL = `
-        INSERT INTO images (frn_user_id, frn_type_id, url, public_id)
-        VALUES (?, ?, ?, ?);
+        INSERT INTO images (frn_user_id, frn_type_id, url, public_id, date_created)
+        VALUES (?, ?, ?, ?, ?);
     `
 
-    let param = [postData.user_id, postData.type_id, postData.url, postData.public_id];
+    let param = [postData.user_id, postData.type_id, postData.url, postData.public_id, postData.date_created];
 
     try{
         const results = await database.query(createImageSQL, param);
@@ -173,10 +173,10 @@ async function getAllImages(){
 async function createText(postData) {
 
     let createTextSQL = `
-        INSERT INTO text (text_id, frn_user_id, frn_type_id, html, css, js)
-        VALUES (?, ?, ?, ?, ?, ?);
+        INSERT INTO text (text_id, frn_user_id, frn_type_id, html, css, js, date_created)
+        VALUES (?, ?, ?, ?, ?, ?, ?);
     `
-    let param = [postData.text_id, postData.user_id, 1, postData.html, postData.css, postData.js];
+    let param = [postData.text_id, postData.user_id, 1, postData.html, postData.css, postData.js, postData.date_created];
 
     try {
         let results = await database.query(createTextSQL, param);
