@@ -48,7 +48,7 @@
     <% links.forEach((link)=> { %>
         <tr>
             <td><a href="<%- link.url%>"><%- link.url%></a></td>
-            <td><a href="<%- domain%>/url/<%- link.url_short%>"><%- domain%>/url/<%- link.url_short%></a></td>
+            <td><a href="<%- link.domain%>/url/<%- link.url_short%>"><%- link.domain%>/url/<%- link.url_short%></a></td>
             <td><%- link.hits%></td>
             <td><%- link.date_created%></td>
             <td>@<%- link.username%></td>
