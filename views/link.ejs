@@ -5,10 +5,6 @@
 <script src="/scripts/link.js"></script>
 <%- include("templates/headerEnd") %> 
 
-<script type="text/javascript"> 
-    console.log("<%- domain %>");
-</script>
-
 <%- include("templates/navBar") %> 
 <div class="container">
     <div class="title-section">
@@ -52,6 +48,7 @@
             <td><%- link.hits%></td>
             <td><%- link.date_created%></td>
             <td>@<%- link.username%></td>
+            <td><button class="copybtn" onclick="copyURL(`<%- domain%>/url/<%- link.url_short%>`)">Copy URL</button></td>
         </tr>
     <% }) %>
 </table>
