@@ -19,6 +19,17 @@
         <%}%>
     </div>
     <div class="line"></div>
+
+    <div class="textpost-container" id="textPost-container">
+        <% for(let i = 0; i < textPosts.length; i++) {%>
+            <script>
+                window.addEventListener('load', () => {
+                    createTextPostsAndAppend(`<%- textPosts[i].hits%>`, `<%- textPosts[i].html%>`, `<%- textPosts[i].css%>` ,`<%- textPosts[i].js%>`, `<%- textPosts[i].text_id%>`, `<%- textPosts[i].username%>`)
+                })
+            </script>
+        <%}%>
+    </div>
+
 </div>
 
 <%- include("templates/footer") %> 

@@ -98,8 +98,15 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/post/img/:id', async (req, res) => {
-    if (req.session.authenticated){
-        let imagePost = await db_query.hitAndGetImage({public_id: req.params.id});
+    let isOwner = await db_query.getImageOwner(
+        {
+            user_id: req.session.user_id,
+            public_id: req.params.id
+        }
+    );
+
+    if (req.session.authenticated && isOwner){
+        let imagePost = await db_query.getImage({public_id: req.params.id});
         let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
         res.render('post', {
             loggedin: true,
@@ -107,8 +114,23 @@ app.get('/post/img/:id', async (req, res) => {
             url: imagePost.url,
             postOwner: userInfo.username
         });
-    } else {
-        let imagePost = await db_query.hitAndGetImage({public_id: req.params.id});
+    } 
+
+    if (req.session.authenticated && !isOwner){
+        await db_query.increaseImageHit({public_id: req.params.id});
+        let imagePost = await db_query.getImage({public_id: req.params.id});
+        let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
+        res.render('post', {
+            loggedin: true,
+            hits: imagePost.hits,
+            url: imagePost.url,
+            postOwner: userInfo.username
+        });
+    } 
+
+    if (!req.session.authenticated){
+        await db_query.increaseImageHit({public_id: req.params.id});
+        let imagePost = await db_query.getImage({public_id: req.params.id});
         let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
         res.render('post', {
             loggedin: false,
@@ -184,12 +206,17 @@ app.get('/image', async (req, res) => {
 // Text Routing
 
 app.get('/text', async(req, res) => {
+    let allText = await db_query.getAllTextPosts();
     if(!req.session.authenticated){
-        res.render("textLanding", {loggedin: false});
+        res.render("textLanding", {
+            loggedin: false,
+            textPosts: allText
+        });
     } else {
         res.render("textLanding", {
             loggedin: true,
-            user_id: req.session.user_id
+            user_id: req.session.user_id,
+            textPosts: allText
         });
     }
 })

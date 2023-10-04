@@ -25,8 +25,10 @@
     .btn-container,
     .url-container{
         height: 3rem;
-        width: 8rem;
-        display: grid;
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+        justify-content: end;
     }
 
     .save-btn,
@@ -139,11 +141,12 @@
 
     .btns-container{
         display: flex;
-        grid-column-start: 1;
+        grid-column-start: 3;
         grid-column-end: 4;
         grid-row-start: 2;
         height: 100%;
         width: 95%;
+        justify-items: flex-end;
     }
 
     .btn-container{
@@ -155,16 +158,15 @@
     }
 
     .url-container{
-        grid-column-start: 1;
-        grid-row-start: 2;
         height: 100%;
         width: 90%;
-        display: grid;
+        display: flex;
+        gap: 1rem;
+        justify-content: end;
     }
 
     .url-button{
         align-self: end;
-
         height: 70%;
         width: 8rem;
         border: none;
@@ -176,7 +178,7 @@
 
     .save-btn{
         align-self: end;
-        justify-self: end;
+
         height: 70%;
         width: 8rem;
         border: none;

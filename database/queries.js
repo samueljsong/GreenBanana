@@ -70,7 +70,7 @@ async function getAllPosts(postData){
 
     let getUrlSQL = `
         SELECT *
-        FROM url
+        FROM link
         WHERE frn_user_id = (?);
     `
 
@@ -100,12 +100,7 @@ async function getAllPosts(postData){
     }
 }
 
-async function hitAndGetImage(postData){
-    let increaseHitSQL = `
-        UPDATE images
-        SET hits = hits + 1
-        WHERE public_id = (?);
-    `
+async function getImage(postData){
 
     let getImageSQL = `
         SELECT *
@@ -115,13 +110,52 @@ async function hitAndGetImage(postData){
 
     let param = [postData.public_id];
     try{
-        await database.query(increaseHitSQL, param);
         let imagePost = await database.query(getImageSQL, param);
         return imagePost[0][0];
     }
     catch(err){
-        console.log("Error in increasing hit and getting img");
+        console.log("Error in getting img");
         console.log(err);
+    }
+}
+
+async function getImageOwner(postData) {
+    let imageOwner = `
+        SELECT frn_user_id
+        FROM images
+        WHERE public_id = (?);
+    `
+
+    let param = [postData.public_id];
+
+    try {
+        let result = await database.query(imageOwner, param);
+        let ownerID = result[0][0].frn_user_id;
+        if (ownerID === postData.user_id){
+            return true;
+        }else{
+            return false;
+        }
+    } catch(e){
+        console.log("Error in getting image owner");
+        console.log(e);
+    }
+}
+
+async function increaseImageHit(postData){
+    let increaseHitSQL = `
+        UPDATE images
+        SET hits = hits + 1
+        WHERE public_id = (?);
+    `;
+
+    let param = [postData.public_id];
+
+    try {
+        await database.query(increaseHitSQL, param);
+    } catch(e){
+        console.log("Error in increasing image hit");
+        console.log(e);
     }
 }
 
@@ -136,7 +170,6 @@ async function getPostOwner(postData){
 
     try{
         let userInfo = await database.query(getPostOwnerSQL, param);
-        console.log(userInfo);
         return userInfo[0][0];
     }
     catch(err){
@@ -268,9 +301,29 @@ async function deleteText(postData){
     }
 }
 
+async function getAllTextPosts(){
+    let getAllTextPostSQL = `
+        SELECT text_id, frn_user_id, html, css, js, hits, date_created, username
+        FROM text
+        JOIN user
+        ON frn_user_id = user_id
+        ORDER BY date_created DESC;
+    `
+
+    try {
+        let result = await database.query(getAllTextPostSQL);
+        return result[0];
+    } catch (error) {
+        console.log('Error in getting all text posts');
+        console.log(error);
+    }
+
+
+}
+
 module.exports = {
     createUser, getUser, createImage,
-    getAllPosts, hitAndGetImage, getPostOwner, getAllImages,
+    getAllPosts, getImage, increaseImageHit, getPostOwner, getAllImages, getImageOwner,
     createText, isOwner, getTextDetails, saveTextDetails,
-    increaseTextHits, deleteText
+    increaseTextHits, deleteText, getAllTextPosts
 }

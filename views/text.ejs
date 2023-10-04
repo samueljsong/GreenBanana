@@ -12,12 +12,11 @@
     <div class="btns-container">
         <div class="url-container">
             <button class="url-button" type="button" onclick="copyUrl()">Copy URL</button>
+            <% if(owner){%>
+                <button class="save-btn" type="submit">Save Your Work</button>
+            <%}%>
         </div>
-        <% if(owner){%>
-        <div class="btn-container" >
-            <button class="save-btn" type="submit">Save Your Work</button>
-        </div>
-        <%}%>
+        
     </div>
 
     <textarea class="invisible" name="text_id"><%- text_id%></textarea>
