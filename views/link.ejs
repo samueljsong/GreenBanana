@@ -1,0 +1,64 @@
+<%- include("templates/headerStart") %>
+<link rel="stylesheet" href="/css/linkLanding.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+<script src="/scripts/link.js"></script>
+<%- include("templates/headerEnd") %> 
+
+<script type="text/javascript"> 
+    $.cloudinary.config({ cloud_name: '<%= process.env.CLOUDINARY_CLOUD_NAME %>', secure: true});
+</script>
+
+<%- include("templates/navBar") %> 
+<div class="container">
+    <div class="title-section">
+        <h1>Links</h1>
+        <% if (loggedin){ %>
+            <button class="create-link" onclick="openModal()">Create Link</button>
+        <%} else {%>
+            <button class="login-btn" onclick="navigateToLogin()">Login to Create</button>
+        <%}%>
+    </div>
+    <div class="line"></div>
+    <% if (loggedin){ %>
+        <div id="backdrop" onclick="closeModal()">
+        </div>
+        <div id="formcont" class="urlmodal">
+            <h2>Enter an URL</h2>
+            <form class="create-url-form urlmodal" action="/createLink" method="post">
+                <input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" />
+                <div class="field urlmodal">
+                    <button class="upload-btn urlmodal">
+                        Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    <%}%>
+</div>
+
+<table class="list">
+    <tr class="list-header">
+        <th>URL</th>
+        <th>Short URL</th>
+        <th>Hits</th>
+        <th>Created</th>
+        <th>User</th>
+    </tr>
+    <% links.forEach((link)=> { %>
+        <tr>
+            <td><a href="<%- link.url%>"><%- link.url%></a></td>
+            <td><a href="<%- link.domain%>/url/<%- link.url_short%>"><%- link.domain%>/url/<%- link.url_short%></a></td>
+            <td><%- link.hits%></td>
+            <td><%- link.date_created%></td>
+            <td>@<%- link.username%></td>
+        </tr>
+    <% }) %>
+</table>
+
+
+    
+
+    
+
+<%- include("templates/footer") %> 

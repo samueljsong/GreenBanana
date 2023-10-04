@@ -5,3 +5,7 @@ function navigateToImage() {
 function navigateToText(){
     window.location.href = '/text'
 }
+
+function navigateToLink(){
+    window.location.href = '/link'
+}

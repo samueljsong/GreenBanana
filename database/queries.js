@@ -68,8 +68,9 @@ async function getAllPosts(postData){
         WHERE frn_user_id = (?);
     `
 
-    let getUrlSQL = `
+    let getLinkSQL = `
         SELECT *
+        FROM link
         FROM link
         WHERE frn_user_id = (?);
     `
@@ -84,12 +85,12 @@ async function getAllPosts(postData){
 
     try {
         let imagePosts = await database.query(getImagesSQL, param);
-        let urlPosts = await database.query(getUrlSQL, param);
+        let linkPosts = await database.query(getLinkSQL, param);
         let textPosts = await database.query(getTextSQL, param);
 
         let posts = {};
         posts.image = imagePosts[0];
-        posts.url = urlPosts[0];
+        posts.link = linkPosts[0];
         posts.text = textPosts[0];
 
         return posts;
@@ -197,6 +198,96 @@ async function getAllImages(){
     }
     catch(err){
         console.log("Error in getting images");
+        console.log(err);
+    }
+}
+
+
+//link queries
+async function createLink(postData) {
+
+    let createLinkSQL = `
+        INSERT INTO link (frn_user_id, frn_type_id, url, url_short, date_created)
+        VALUES (?, ?, ?, ?, ?);
+    `
+    let param = [postData.user_id, 3, postData.url, postData.url_short, postData.date_created];
+
+    try {
+        let results = await database.query(createLinkSQL, param);
+    }catch(err){
+        console.log(err);
+    }
+}
+
+async function getAllLinks(){
+    
+    let getlinksSQL = `
+        SELECT link_id, url, url_short, hits, date_created, username
+        FROM link
+        JOIN user 
+        on user_id = frn_user_id
+        ORDER BY link_id DESC;
+    `
+
+    try {
+        let linkPosts = await database.query(getlinksSQL);
+
+        let links = linkPosts[0];
+
+        return links;
+    }
+    catch(err){
+        console.log("Error in getting links");
+        console.log(err);
+    }
+}
+
+async function increaseLinkHits(postData){
+    let increaseHitSQL = `
+        UPDATE link
+        SET hits = hits + 1
+        WHERE url_short = (?);
+    `
+
+    let param = [postData.url_short];
+
+    try {
+        let result = await database.query(increaseHitSQL, param);
+        
+    } catch (err){
+        console.log(err);
+    }
+
+}
+
+async function getLinkDetails(postData){
+    let getDetailsSQL = `
+        SELECT *
+        FROM link
+        WHERE url_short = (?);
+    `
+
+    let param = [postData.url_short];
+
+    try{
+        let linkDetails = await database.query(getDetailsSQL, param);
+        return linkDetails[0][0];
+    } catch (err) {
+        return false;
+    }
+}
+
+async function deleteLink(postData){
+    let deleteLinkSQL = `
+        DELETE FROM text
+        WHERE text_id = (?);
+    `
+
+    let param = [postData.link_id];
+
+    try {
+        let result = await database.query(deleteLinkSQL, param);
+    } catch (err) {
         console.log(err);
     }
 }
@@ -325,5 +416,7 @@ module.exports = {
     createUser, getUser, createImage,
     getAllPosts, getImage, increaseImageHit, getPostOwner, getAllImages, getImageOwner,
     createText, isOwner, getTextDetails, saveTextDetails,
-    increaseTextHits, deleteText, getAllTextPosts
+    increaseTextHits, deleteText, getAllTextPosts,
+    createLink, getAllLinks, increaseLinkHits, deleteLink,
+    getLinkDetails
 }

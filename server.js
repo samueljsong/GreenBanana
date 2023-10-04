@@ -160,8 +160,8 @@ app.get('/profile', async (req, res) => {
     } else {
 
         let allPosts = await db_query.getAllPosts({user_id: req.session.user_id});
-        let totalPosts = allPosts.image.length + allPosts.text.length + allPosts.url.length;
-        let totalHits = getHits(allPosts.image) + getHits(allPosts.text) + getHits(allPosts.url);
+        let totalPosts = allPosts.image.length + allPosts.text.length + allPosts.link.length;
+        let totalHits = getHits(allPosts.image) + getHits(allPosts.text) + getHits(allPosts.link);
         
         //separate the different types of post and sort by date
 
@@ -184,6 +184,41 @@ app.get('/profile', async (req, res) => {
             totalHits: totalHits,
         });
     }
+})
+
+app.get('/link', async (req, res) => {
+    let allLinks = await db_query.getAllLinks();
+
+    if (!req.session.authenticated){
+        res.render("link", {loggedin: false, links: allLinks});
+    } else {
+        console.log(req.hostname);
+        res.render('link', {
+            domain: req.hostname,
+            loggedin: true,
+            username: req.session.username,
+            email: req.session.email,
+            links: allLinks
+        })
+    }
+})
+
+app.get('/url/:id', async (req, res) => {
+
+    let linkDetails = await db_query.getLinkDetails({url_short: req.params.id});
+    if(linkDetails === false){
+        if(!req.session.authenticated){
+            res.render('/404', {loggedin: true})
+        } else {
+            res.render('/404', {loggedin: false})
+        }
+    }
+
+    await db_query.increaseLinkHits({url_short: req.params.id});
+    res.render("url", {
+        loggedin: false,
+        url: linkDetails.url
+    });
 })
 
 
@@ -402,6 +437,21 @@ app.post('/createImage', upload.single('image'), (req, res) => {
     })
 
     res.redirect('/image')
+})
+
+app.post('/createLink', async (req, res) => {
+    let shorturl = Math.random().toString(32).slice(2);
+    let date = new Date();
+    let dateString = date.toISOString().slice(0, 19).replace('T', ' ');
+
+    await db_query.createLink({
+        user_id: req.session.user_id,
+        url: req.body.url,
+        url_short: shorturl,
+        date_created: dateString
+    })
+
+    res.redirect('/link')
 })
 
 //Text post
