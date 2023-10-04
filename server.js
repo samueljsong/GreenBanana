@@ -192,7 +192,6 @@ app.get('/link', async (req, res) => {
     if (!req.session.authenticated){
         res.render("link", {loggedin: false, links: allLinks});
     } else {
-        console.log(`${req.protocol}://${req.get('host')}`);
         res.render('link', {
             domain: `${req.protocol}://${req.get('host')}`,
             loggedin: true,
