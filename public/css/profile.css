@@ -161,6 +161,7 @@
         height: 5rem;
         width: 100%;
         box-shadow: 0px 5px 10px 5px #0000001d;
+        font-size: 0.7rem;
     }
 
     .link-hits-container{
@@ -176,12 +177,27 @@
 
     .link-delete-button{
         height: 70%;
-        width: 7rem;
+        width: 3rem;
         border: solid 1px #6ed9a0;
         border-radius: 5px;
+        font-size: 0.7rem;
     }
 
     .link-delete-button:hover{
+        cursor: pointer;
+        animation: 0.3s turnWhite;
+        animation-fill-mode: forwards;
+    }
+
+    .link-url-button{
+        height: 70%;
+        width: 3rem;
+        border: solid 1px #6ed9a0;
+        border-radius: 5px;
+        font-size: 0.7rem;
+    }
+
+    .link-url-button:hover{
         cursor: pointer;
         animation: 0.3s turnWhite;
         animation-fill-mode: forwards;
@@ -465,6 +481,7 @@
         height: 5rem;
         width: 100%;
         box-shadow: 0px 5px 10px 5px #0000001d;
+        font-size: 0.8rem;
     }
 
     .link-hits-container{
@@ -480,12 +497,25 @@
 
     .link-delete-button{
         height: 70%;
-        width: 7rem;
+        width: 5rem;
         border: solid 1px #6ed9a0;
         border-radius: 5px;
     }
 
     .link-delete-button:hover{
+        cursor: pointer;
+        animation: 0.3s turnWhite;
+        animation-fill-mode: forwards;
+    }
+
+    .link-url-button{
+        height: 70%;
+        width: 5rem;
+        border: solid 1px #6ed9a0;
+        border-radius: 5px;
+    }
+
+    .link-url-button:hover{
         cursor: pointer;
         animation: 0.3s turnWhite;
         animation-fill-mode: forwards;
@@ -791,6 +821,7 @@
         height: 5rem;
         width: 100%;
         box-shadow: 0px 5px 10px 5px #0000001d;
+        font-size: 1rem;
     }
 
     .link-hits-container{
@@ -809,6 +840,19 @@
         width: 7rem;
         border: solid 1px #6ed9a0;
         border-radius: 5px;
+    }
+
+    .link-url-button{
+        height: 70%;
+        width: 7rem;
+        border: solid 1px #6ed9a0;
+        border-radius: 5px;
+    }
+
+    .link-url-button:hover{
+        cursor: pointer;
+        animation: 0.3s turnWhite;
+        animation-fill-mode: forwards;
     }
 
     .link-delete-button:hover{

@@ -74,8 +74,13 @@ function LinkPost(hits, url, url_short, link_id, domain){
     deleteButton.innerText = 'Delete'
     deleteButton.className = 'link-delete-button';
 
+    let copyUrlButton = document.createElement('button');
+    copyUrlButton.innerText = 'Copy URL'
+    copyUrlButton.className = 'link-url-button';
+
     postCard.appendChild(urlShort);
     postCard.appendChild(hitsContainer);
+    postCard.appendChild(copyUrlButton);
     postCard.appendChild(deleteButton);
 
     postCard.classList.add('post');
@@ -89,6 +94,11 @@ function LinkPost(hits, url, url_short, link_id, domain){
             method: 'post'
         })
         .then(location.replace(window.location.href))
+    })
+
+    copyUrlButton.addEventListener('click',() => {
+        navigator.clipboard.writeText(domain + '/url/' +url_short);
+        alert(`URL: ${domain + '/url/' +url_short} has been copied.`);
     })
     
 }
@@ -122,9 +132,9 @@ function TextPost(hits, html, css, js, text_id){
     let editContainer = document.createElement('div');
     editContainer.className = 'edit-container'
     let editButton = document.createElement('button');
-    editButton.innerText = 'EDIT'
+    editButton.innerText = 'Edit'
     let deleteButton = document.createElement('button');
-    deleteButton.innerText = 'DELETE'
+    deleteButton.innerText = 'Delete'
 
     editContainer.appendChild(hitsContainer);
     editContainer.appendChild(editButton);
