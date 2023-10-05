@@ -168,6 +168,7 @@ app.get('/profile', async (req, res) => {
         let allPosts = await db_query.getAllPosts({user_id: req.session.user_id});
         let totalPosts = allPosts.image.length + allPosts.text.length + allPosts.link.length;
         let totalHits = getHits(allPosts.image) + getHits(allPosts.text) + getHits(allPosts.link);
+        let domain = `${req.protocol}://${req.get('host')}`;
         
         //separate the different types of post and sort by date
 
@@ -192,7 +193,7 @@ app.get('/profile', async (req, res) => {
             textPosts: textPosts,
             totalPosts: totalPosts,
             totalHits: totalHits,
-            domain: req.hostname
+            domain: domain
         });
     }
 })
