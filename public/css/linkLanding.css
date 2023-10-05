@@ -193,8 +193,9 @@
 
 @media only screen and (min-width: 670px){
     body{
-        height: 100vh;
+        height: auto;
         width: 100%;
+        margin-bottom: 1rem;
     }
     
     .container{
@@ -318,7 +319,7 @@
 
     .list {
         table-layout: fixed;
-        width: 100vw;
+        width: 100%;
         padding-left: 5%;
         padding-right: 5%;
         border-collapse: separate; 
@@ -395,8 +396,9 @@
 @media only screen and (min-width: 1024px){
     
     body{
-        height: 100vh;
+        height: auto;
         width: 100%;
+        margin-bottom: 1rem;
     }
     
     .container{
@@ -520,7 +522,7 @@
 
     .list {
         table-layout: fixed;
-        width: 100vw;
+        width: 100%;
         padding-left: 10%;
         padding-right: 10%;
         border-collapse: separate; 
