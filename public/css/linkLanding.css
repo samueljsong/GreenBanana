@@ -169,5 +169,14 @@
         border-radius:0 10px 10px 0;
     }
       
+    .copybtn {
+        color: #ffffff;
+        background-color: #6ed9a0;
+        border-radius: 4px;
+        height: 30px;
+        width: 70px;
+        border: none;
+        cursor: pointer;
+    }
 
 }

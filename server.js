@@ -193,12 +193,13 @@ app.get('/profile', async (req, res) => {
 
 app.get('/link', async (req, res) => {
     let allLinks = await db_query.getAllLinks();
+    let domain = `${req.protocol}://${req.get('host')}`;
 
     if (!req.session.authenticated){
-        res.render("link", {loggedin: false, links: allLinks});
+        res.render("link", {domain: domain, loggedin: false, links: allLinks});
     } else {
         res.render('link', {
-            domain: `${req.protocol}://${req.get('host')}`,
+            domain: domain,
             loggedin: true,
             username: req.session.username,
             email: req.session.email,
@@ -210,19 +211,21 @@ app.get('/link', async (req, res) => {
 app.get('/url/:id', async (req, res) => {
 
     let linkDetails = await db_query.getLinkDetails({url_short: req.params.id});
-    if(linkDetails === false){
+    if(linkDetails === false || linkDetails == null){
         if(!req.session.authenticated){
-            res.render('/404', {loggedin: true})
+            res.render('404', {loggedin: true})
         } else {
-            res.render('/404', {loggedin: false})
+            res.render('404', {loggedin: false})
         }
+    } else {
+        await db_query.increaseLinkHits({url_short: req.params.id});
+        res.render("url", {
+            loggedin: false,
+            url: linkDetails.url
+        });
     }
 
-    await db_query.increaseLinkHits({url_short: req.params.id});
-    res.render("url", {
-        loggedin: false,
-        url: linkDetails.url
-    });
+    
 })
 
 

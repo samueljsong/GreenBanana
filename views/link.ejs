@@ -5,10 +5,6 @@
 <script src="/scripts/link.js"></script>
 <%- include("templates/headerEnd") %> 
 
-<script type="text/javascript"> 
-    $.cloudinary.config({ cloud_name: '<%= process.env.CLOUDINARY_CLOUD_NAME %>', secure: true});
-</script>
-
 <%- include("templates/navBar") %> 
 <div class="container">
     <div class="title-section">
@@ -48,10 +44,11 @@
     <% links.forEach((link)=> { %>
         <tr>
             <td><a href="<%- link.url%>"><%- link.url%></a></td>
-            <td><a href="<%- link.domain%>/url/<%- link.url_short%>"><%- link.domain%>/url/<%- link.url_short%></a></td>
+            <td><a href="<%- domain%>/url/<%- link.url_short%>"><%- domain%>/url/<%- link.url_short%></a></td>
             <td><%- link.hits%></td>
             <td><%- link.date_created%></td>
             <td>@<%- link.username%></td>
+            <td><button class="copybtn" onclick="copyURL(`<%- domain%>/url/<%- link.url_short%>`)">Copy URL</button></td>
         </tr>
     <% }) %>
 </table>

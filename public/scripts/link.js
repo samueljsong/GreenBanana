@@ -15,3 +15,8 @@ function closeModal() {
     var modal = document.getElementById("formcont");
     modal.style.display = "none";
 }
+
+function copyURL(url) {
+    navigator.clipboard.writeText(url);
+    alert("Copied URL: " + url);
+}
