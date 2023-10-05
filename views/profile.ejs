@@ -50,6 +50,14 @@
         <div id="link-container" class="hide">
             <%if(linkPosts.length === 0) {%>
                 <h3 class="hide">... No Posts</h3>
+            <%} else {%>
+                <% for(let i = 0; i < linkPosts.length; i++) {%>
+                    <script>
+                        window.addEventListener('load', () => {
+                            createLinkPostsAndAppend(`<%- linkPosts[i].hits%>`, `<%- linkPosts[i].url%>`, `<%- linkPosts[i].url_short%>`, `<%- linkPosts[i].link_id%>`, `<%- domain%>`)
+                        });
+                    </script>
+                <%}%>
             <%}%>
         </div>
         <div id="img-container" class="hide">

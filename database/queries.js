@@ -71,7 +71,6 @@ async function getAllPosts(postData){
     let getLinkSQL = `
         SELECT *
         FROM link
-        FROM link
         WHERE frn_user_id = (?);
     `
 
@@ -279,8 +278,8 @@ async function getLinkDetails(postData){
 
 async function deleteLink(postData){
     let deleteLinkSQL = `
-        DELETE FROM text
-        WHERE text_id = (?);
+        DELETE FROM link
+        WHERE link_id = (?);
     `
 
     let param = [postData.link_id];

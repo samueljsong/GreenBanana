@@ -22,7 +22,7 @@
     0% {
         box-shadow: none;
         border: solid 1px #6ed9a0;
-        color: #6ed9a0;
+        color: white;
     }
     100%{
         color: #ffffff;

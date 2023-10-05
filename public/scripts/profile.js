@@ -8,6 +8,7 @@ function ImagePost(url, type, id, public_id, hits){
     // Creating div card
     let postCard = document.createElement('div');
     postCard.className = "post";
+    postCard.classList.add('image-post-card');
     postCard.classList.add('hide');
     postCard.style.backgroundColor = 'black';
 
@@ -44,6 +45,52 @@ function ImagePost(url, type, id, public_id, hits){
     this.postCard.addEventListener('mouseleave', () => {
         hitsContainer.style.display = 'none'
     })
+}
+
+function LinkPost(hits, url, url_short, link_id, domain){
+    this.hits = hits;
+    this.url = url;
+    this.url_short = url_short;
+    this.link_id = link_id;
+    this.domain = domain;
+
+    let postCard = document.createElement('div');
+    postCard.className = 'link-post-card'
+    let urlShort = document.createElement('a');
+    urlShort.innerText = domain + '/url/' +url_short;
+    urlShort.href = '/url/' +url_short;
+    
+    let hitsContainer = document.createElement('div');
+    hitsContainer.className = 'link-hits-container'
+    let hitsLink = document.createElement('img');
+    hitsLink.src = '/assets/heart.png';
+    hitsLink.className = 'link-hearts';
+    let hitsNum = document.createElement('p');
+    hitsNum.innerText = this.hits;
+    hitsContainer.appendChild(hitsLink);
+    hitsContainer.appendChild(hitsNum);
+
+    let deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Delete'
+    deleteButton.className = 'link-delete-button';
+
+    postCard.appendChild(urlShort);
+    postCard.appendChild(hitsContainer);
+    postCard.appendChild(deleteButton);
+
+    postCard.classList.add('post');
+    postCard.classList.add('show');
+    this.postCard = postCard;
+
+    
+
+    deleteButton.addEventListener('click', async () => {
+        await fetch(`/post/url/${this.link_id}/delete`, {
+            method: 'post'
+        })
+        .then(location.replace(window.location.href))
+    })
+    
 }
 
 function TextPost(hits, html, css, js, text_id){
@@ -108,6 +155,11 @@ function TextPost(hits, html, css, js, text_id){
 function createImagePostsAndAppend(url, type, id, public_id, hits){
     let tempCard = new ImagePost(url, type, id, public_id, hits);
     document.getElementById('img-container').appendChild(tempCard.postCard);
+}
+
+function createLinkPostsAndAppend(hits, url, url_short, link_id, domain){
+    let tempCard = new LinkPost(hits, url, url_short, link_id, domain);
+    document.getElementById('link-container').appendChild(tempCard.postCard);
 }
 
 function createTextPostsAndAppend(hits, html, css, js, text_id){

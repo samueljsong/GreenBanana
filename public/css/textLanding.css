@@ -85,7 +85,7 @@
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
         box-shadow: 0px 5px 10px 5px #0000001d;
-        border: solid 1px #00000000;
+        border: solid 1px #374652;
         border-radius: 10px;
     }
 
@@ -109,6 +109,11 @@
         background-color: #6ed9a0;
         color: white;
         cursor: pointer;
+    }
+
+    .edit-container button:hover{
+        animation: 0.3s turnWhite;
+        animation-fill-mode: forwards;
     }
 
     .general-container{
@@ -224,7 +229,7 @@
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
         box-shadow: 0px 5px 10px 5px #0000001d;
-        border: solid 1px #00000000;
+        border: solid 1px #374652;
         border-radius: 10px;
     }
 
@@ -245,9 +250,14 @@
         height: 85%;
         border: none;
         border-radius: 5px;
-        background-color: #6ed9a0;
-        color: white;
+        background-color: #6ed9a000;
+        border: solid 1px #6ed9a0;
         cursor: pointer;
+    }
+
+    .edit-container button:hover{
+        animation: 0.3s turnWhite;
+        animation-fill-mode: forwards;
     }
 
     .general-container{
@@ -363,7 +373,7 @@
         aspect-ratio: 1/1;
         background-color: #2a363fad;
         backdrop-filter: blur(5px);
-        border: solid 1px #00000000;
+        border: solid 1px #374652;
         -webkit-backdrop-filter: blur(5px);
         box-shadow: 0px 5px 10px 5px #0000001d;
         border-radius: 10px;
@@ -386,9 +396,14 @@
         height: 85%;
         border: none;
         border-radius: 5px;
-        background-color: #6ed9a0;
-        color: white;
+        background-color: #6ed9a000;
+        border: solid 1px #6ed9a0;
         cursor: pointer;
+    }
+
+    .edit-container button:hover{
+        animation: 0.3s turnWhite;
+        animation-fill-mode: forwards;
     }
 
     .general-container{

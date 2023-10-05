@@ -173,15 +173,20 @@ app.get('/profile', async (req, res) => {
             return b.date_created - a.date_created;
         })
 
+        let linkPosts = allPosts.link.sort((a,b) => {
+            return b.date_created - a.date_created;
+        })
+
         res.render('profile', {
             loggedin: true,
             username: req.session.username,
             email: req.session.email,
             imagePosts: imagePosts,
-            urlPosts: allPosts.url,
+            linkPosts: linkPosts,
             textPosts: textPosts,
             totalPosts: totalPosts,
             totalHits: totalHits,
+            domain: req.hostname
         });
     }
 })
@@ -258,6 +263,10 @@ app.get('/text', async(req, res) => {
 app.post('/post/text/:id/delete', async (req, res) => {
     
     await db_query.deleteText({text_id: req.params.id})
+})
+
+app.post('/post/url/:id/delete', async (req, res) => {
+    await db_query.deleteLink({link_id: req.params.id});
 })
 
 app.get('/post/text/:id', async (req, res) => {
