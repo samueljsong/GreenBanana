@@ -17,12 +17,16 @@ function togglemenu() {
 }
 
 window.onclick = function(e) {
-    var navmenu = document.getElementById("navmenu");
-    var menubtn = document.getElementById("navmenubtn");
-    if (!e.target.matches('.navmenu')) {
-        navmenu.style.display = "none";
-        menubtn.style.borderBottom = null;
-        menubtn.style.textShadow =  null;
-        menu = false;
+
+    if (loggedin) {
+        var navmenu = document.getElementById("navmenu");
+        var menubtn = document.getElementById("navmenubtn");
+        if (!e.target.matches('.navmenu')) {
+            navmenu.style.display = "none";
+            menubtn.style.borderBottom = null;
+            menubtn.style.textShadow =  null;
+            menu = false;
+        }
     }
+    
 }

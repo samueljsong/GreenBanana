@@ -104,40 +104,46 @@ app.get('/post/img/:id', async (req, res) => {
             public_id: req.params.id
         }
     );
+    let imagePost = await db_query.getImage({public_id: req.params.id});
 
-    if (req.session.authenticated && isOwner){
-        let imagePost = await db_query.getImage({public_id: req.params.id});
-        let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
-        res.render('post', {
-            loggedin: true,
-            hits: imagePost.hits,
-            url: imagePost.url,
-            postOwner: userInfo.username
-        });
-    } 
+    if(imagePost === false || imagePost== null) {
+        if(!req.session.authenticated){
+            res.render('404', {loggedin: true})
+        } else {
+            res.render('404', {loggedin: false})
+        }
+    } else {
+        if (req.session.authenticated && isOwner){
+            let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
+            res.render('post', {
+                loggedin: true,
+                hits: imagePost.hits,
+                url: imagePost.url,
+                postOwner: userInfo.username
+            });
+        } 
 
-    if (req.session.authenticated && !isOwner){
-        await db_query.increaseImageHit({public_id: req.params.id});
-        let imagePost = await db_query.getImage({public_id: req.params.id});
-        let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
-        res.render('post', {
-            loggedin: true,
-            hits: imagePost.hits,
-            url: imagePost.url,
-            postOwner: userInfo.username
-        });
-    } 
+        if (req.session.authenticated && !isOwner){
+            await db_query.increaseImageHit({public_id: req.params.id});
+            let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
+            res.render('post', {
+                loggedin: true,
+                hits: imagePost.hits,
+                url: imagePost.url,
+                postOwner: userInfo.username
+            });
+        } 
 
-    if (!req.session.authenticated){
-        await db_query.increaseImageHit({public_id: req.params.id});
-        let imagePost = await db_query.getImage({public_id: req.params.id});
-        let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
-        res.render('post', {
-            loggedin: false,
-            hits: imagePost.hits,
-            url: imagePost.url,
-            postOwner: userInfo.username
-        });
+        if (!req.session.authenticated){
+            await db_query.increaseImageHit({public_id: req.params.id});
+            let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
+            res.render('post', {
+                loggedin: false,
+                hits: imagePost.hits,
+                url: imagePost.url,
+                postOwner: userInfo.username
+            });
+        }
     }
 })
 
@@ -275,11 +281,14 @@ app.post('/post/url/:id/delete', async (req, res) => {
 app.get('/post/text/:id', async (req, res) => {
 
     let textDetails = await db_query.getTextDetails({text_id: req.params.id});
-    if(textDetails === false){
-        res.render('/404', {loggedin: true})
-    }
-
-    if(!req.session.authenticated){
+    if(textDetails === false || linkDetails == null){
+        if(!req.session.authenticated){
+            res.render('404', {loggedin: true})
+        } else {
+            res.render('404', {loggedin: false})
+        }
+    } else {
+        if(!req.session.authenticated){
         await db_query.increaseTextHits({text_id: req.params.id});
         res.render("text", {
             loggedin: false,
@@ -289,29 +298,32 @@ app.get('/post/text/:id', async (req, res) => {
             css: textDetails.css,
             js: textDetails.js
         });
-    }else{
-        let result = await db_query.isOwner({text_id: req.params.id});
-        if(result.frn_user_id === req.session.user_id){
-            res.render('text', {
-                loggedin: true,
-                owner: true,
-                text_id: req.params.id,
-                html: textDetails.html,
-                css: textDetails.css,
-                js: textDetails.js
-            });
         }else{
-            await db_query.increaseTextHits({text_id: req.params.id});
-            res.render('text',{
-                loggedin: true,
-                owner: false,
-                text_id: req.params.id,
-                html: textDetails.html,
-                css: textDetails.css,
-                js: textDetails.js
-            })
+            let result = await db_query.isOwner({text_id: req.params.id});
+            if(result.frn_user_id === req.session.user_id){
+                res.render('text', {
+                    loggedin: true,
+                    owner: true,
+                    text_id: req.params.id,
+                    html: textDetails.html,
+                    css: textDetails.css,
+                    js: textDetails.js
+                });
+            }else{
+                await db_query.increaseTextHits({text_id: req.params.id});
+                res.render('text',{
+                    loggedin: true,
+                    owner: false,
+                    text_id: req.params.id,
+                    html: textDetails.html,
+                    css: textDetails.css,
+                    js: textDetails.js
+                })
+            }
         }
     }
+
+    
 })
     
 app.get('/404', (req,res) => {
