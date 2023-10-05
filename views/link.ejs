@@ -35,20 +35,21 @@
 
 <table class="list">
     <tr class="list-header">
-        <th>URL</th>
-        <th>Short URL</th>
-        <th>Hits</th>
-        <th>Created</th>
-        <th>User</th>
+        <th style="width: 40%">URL</th>
+        <th style="width: 20%">Short URL</th>
+        <th style="width: 5%">Hits</th>
+        <th style="width: 10%">Created</th>
+        <th style="width: 15%">User</th>
+        <th style="width: 10%"></th>
     </tr>
     <% links.forEach((link)=> { %>
         <tr>
-            <td><a href="<%- link.url%>"><%- link.url%></a></td>
-            <td><a href="<%- domain%>/url/<%- link.url_short%>"><%- domain%>/url/<%- link.url_short%></a></td>
-            <td><%- link.hits%></td>
-            <td><%- link.date_created%></td>
-            <td>@<%- link.username%></td>
-            <td><button class="copybtn" onclick="copyURL(`<%- domain%>/url/<%- link.url_short%>`)">Copy URL</button></td>
+            <td style="width: 40%"><a class="link" href="<%- link.url%>"><%- link.url%></a></td>
+            <td style="width: 20%"><a class="link" href="<%- domain%>/url/<%- link.url_short%>"><%- domain%>/url/<%- link.url_short%></a></td>
+            <td style="width: 5%"><%- link.hits%></td>
+            <td style="width: 10%"><%- link.date_created%></td>
+            <td style="width: 15%">@<%- link.username%></td>
+            <td style="width: 10%"><button class="copybtn" onclick="copyURL(`<%- domain%>/url/<%- link.url_short%>`)">Copy URL</button></td>
         </tr>
     <% }) %>
 </table>
