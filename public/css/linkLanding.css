@@ -1,5 +1,5 @@
 
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 670px){
     body{
         height: 100vh;
         width: 100%;
@@ -127,18 +127,15 @@
 
     .list {
         table-layout: fixed;
-        width: 100vw;
-        padding-left: 10%;
-        padding-right: 10%;
+        padding-left: 1%;
+        padding-right: 1%;
         border-collapse: separate; 
         border-spacing: 0px 10px;
-        display: block;
-        overflow-x: scroll;
     }
 
     .list-header {
         height: 50px;
-        font-size: 20px;
+        font-size: 15px;
         text-align: center;
         background-color: #2a363fad;
         backdrop-filter: blur(5px);
@@ -148,7 +145,7 @@
     
     tr {
         height: 40px;
-        font-size: 15px;
+        font-size: 10px;
         text-align: center;
         background-color: #2a363fad;
         backdrop-filter: blur(5px);
@@ -162,11 +159,6 @@
         animation-fill-mode: forwards;
     }
 
-    th {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
     th:first-child {
         border-radius:10px 0 0 10px;
     }
@@ -177,8 +169,6 @@
 
     td {
         word-break: break-all;
-        padding-left: 20px;
-        padding-right: 20px;
     }
 
     td:first-child {
@@ -188,21 +178,20 @@
     td:last-child {
         border-radius:0 10px 10px 0;
     }
-
-
       
     .copybtn {
+        font-size: 10px;
         color: #ffffff;
         background-color: #6ed9a0;
         border-radius: 4px;
-        height: 30px;
-        width: 70px;
+        height: 15px;
+        width: 45px;
         border: none;
         cursor: pointer;
     }
 }
 
-@media only screen and (min-width: 481px){
+@media only screen and (min-width: 670px){
     body{
         height: 100vh;
         width: 100%;
@@ -330,17 +319,15 @@
     .list {
         table-layout: fixed;
         width: 100vw;
-        padding-left: 10%;
-        padding-right: 10%;
+        padding-left: 5%;
+        padding-right: 5%;
         border-collapse: separate; 
         border-spacing: 0px 10px;
-        display: block;
-        overflow-x: scroll;
     }
 
     .list-header {
         height: 50px;
-        font-size: 20px;
+        font-size: 15px;
         text-align: center;
         background-color: #2a363fad;
         backdrop-filter: blur(5px);
@@ -350,7 +337,7 @@
     
     tr {
         height: 40px;
-        font-size: 15px;
+        font-size: 10px;
         text-align: center;
         background-color: #2a363fad;
         backdrop-filter: blur(5px);
@@ -365,8 +352,8 @@
     }
 
     th {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     th:first-child {
@@ -378,8 +365,9 @@
     }
 
     td {
-        padding-left: 20px;
-        padding-right: 20px;
+        word-break: break-all;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     td:first-child {
@@ -393,11 +381,12 @@
 
       
     .copybtn {
+        font-size: 10px;
         color: #ffffff;
         background-color: #6ed9a0;
         border-radius: 4px;
-        height: 30px;
-        width: 70px;
+        height: 20px;
+        width: 50px;
         border: none;
         cursor: pointer;
     }
@@ -593,6 +582,7 @@
 
       
     .copybtn {
+        font-size: 15px;
         color: #ffffff;
         background-color: #6ed9a0;
         border-radius: 4px;
