@@ -282,7 +282,7 @@ app.post('/post/url/:id/delete', async (req, res) => {
 app.get('/post/text/:id', async (req, res) => {
 
     let textDetails = await db_query.getTextDetails({text_id: req.params.id});
-    if(textDetails === false || linkDetails == null){
+    if(textDetails === false || textDetails == null){
         if(!req.session.authenticated){
             res.render('404', {loggedin: true})
         } else {
