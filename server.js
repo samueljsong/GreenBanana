@@ -1,6 +1,5 @@
 "use strict";
 
-
 // Node Modules
 require('dotenv').config();
 const express = require('express');
@@ -115,6 +114,9 @@ app.get('/post/img/:id', async (req, res) => {
     } else {
         if (req.session.authenticated && isOwner){
             let userInfo = await db_query.getPostOwner({user_id: imagePost.frn_user_id});
+            
+            console.log(userInfo);
+            
             res.render('post', {
                 loggedin: true,
                 hits: imagePost.hits,

@@ -2,61 +2,67 @@ const { text } = require('express');
 const database = require('../databaseConnection')
 
 async function createUser(postData) {
-    let createUserSQL = `
-        INSERT INTO user
-        (username, email, password)
-        VALUES
-        (?, ?, ?);
-    `;
-
-    let param = [postData.user, postData.email, postData.hashedPassword];
-
-    try {
-        const result = await database.query(createUserSQL, param);
-
-        return true;
-    }
-    catch(err){
-        console.log("Error inserting user");
-        console.log(err);
+    
+    const {data, error} = await database
+        .from('user')
+        .insert([
+            {
+                username: postData.user, 
+                email: postData.email, 
+                password: postData.hashedPassword
+            }
+        ])
+    
+    if (error) {
+        console.log("Error in creating user");
+        console.log(error);
         return false;
     }
+
+    return true;
 }
 
 async function getUser(postData){
-    let getUserSQL = `
-        SELECT user_id, username, email, password
-        FROM user
-        WHERE email = (?);
-    `;
+    const { data, error } = await database
+        .from('user')
+        .select('user_id, username, email, password')
+        .eq('email', postData.email)
+        .limit(1) // optional, since email should be unique
 
-    let param = [postData.email];
+        if (error) {
+            console.log('Error finding user:', error)
+            return [];
+        }
 
-    try{
-        const results = await database.query(getUserSQL, param);
-        return results[0];
-    }
-    catch (err) {
-        console.log("Error in finding user");
-        console.log(err);
-        return false;
-    }
+        // data is an array, return first element
+    
+    return data;
 }
 
 async function createImage(postData){
-    let createImageSQL = `
-        INSERT INTO images (frn_user_id, frn_type_id, url, public_id, date_created)
-        VALUES (?, ?, ?, ?, ?);
-    `
+    try {
+        const { data, error } = await database
+            .from('images')
+            .insert([
+                {
+                    frn_user_id: postData.user_id,
+                    frn_type_id: postData.type_id,
+                    url: postData.url,
+                    public_id: postData.public_id,
+                    date_created: postData.date_created
+                }
+            ])
+            .select() // optional: returns inserted row(s)
 
-    let param = [postData.user_id, postData.type_id, postData.url, postData.public_id, postData.date_created];
+        if (error) {
+            console.log("Error inserting new image:", error)
+            return false
+        }
 
-    try{
-        const results = await database.query(createImageSQL, param);
-    }
-    catch(err){
-        console.log("Error in inputing a new image");
-        console.log(err);
+        return data // or true if you just need success
+    } catch (err) {
+        console.log("Unexpected error inserting image:", err)
+        return false
     }
 }
 
@@ -102,103 +108,110 @@ async function getAllPosts(postData){
 
 async function getImage(postData){
 
-    let getImageSQL = `
-        SELECT *
-        FROM images
-        WHERE public_id = (?);
-    `
+    const { data, error } = await database
+        .from('images')
+        .select('*')
+        .eq('public_id', postData.public_id)
+        .limit(1) // optional, since public_id should be unique
 
-    let param = [postData.public_id];
-    try{
-        let imagePost = await database.query(getImageSQL, param);
-        return imagePost[0][0];
-    }
-    catch(err){
-        console.log("Error in getting img");
-        console.log(err);
-    }
+    console.log(data);
+
+    return data[0];
 }
 
 async function getImageOwner(postData) {
-    let imageOwner = `
-        SELECT frn_user_id
-        FROM images
-        WHERE public_id = (?);
-    `
-
-    let param = [postData.public_id];
 
     try {
-        let result = await database.query(imageOwner, param);
-        let ownerID = result[0][0].frn_user_id;
-        if (ownerID === postData.user_id){
-            return true;
-        }else{
-            return false;
+        const { data, error } = await database
+            .from('images')
+            .select('frn_user_id')
+            .eq('public_id', postData.public_id)
+            .single() // ensures only one row is returned
+
+        if (error) {
+            console.error("Error in getting image owner:", error)
+            return false
         }
-    } catch(e){
-        console.log("Error in getting image owner");
-        console.log(e);
+
+        if (data && data.frn_user_id === postData.user_id) {
+            return true
+        } else {
+            return false
+        }
+    } catch (e) {
+        console.error("Unexpected error in getImageOwner:", e)
+        return false
     }
 }
 
 async function increaseImageHit(postData){
-    let increaseHitSQL = `
-        UPDATE images
-        SET hits = hits + 1
-        WHERE public_id = (?);
-    `;
-
-    let param = [postData.public_id];
-
     try {
-        await database.query(increaseHitSQL, param);
-    } catch(e){
-        console.log("Error in increasing image hit");
-        console.log(e);
+    // Step 1: Get current hits
+        const { data: image, error: fetchError } = await database
+        .from('images')
+        .select('hits')
+        .eq('public_id', postData.public_id)
+        .single()
+
+        if (fetchError) {
+            console.error("Error fetching current hits:", fetchError)
+            return
+        }
+
+    // Step 2: Increment
+        const newHits = (image?.hits || 0) + 1
+
+    // Step 3: Update
+        const { error: updateError } = await database
+            .from('images')
+            .update({ hits: newHits })
+            .eq('public_id', postData.public_id)
+
+        if (updateError) {
+            console.error("Error in increasing image hit:", updateError)
+        }
+    } catch (e) {
+        console.error("Unexpected error in increasing image hit:", e)
     }
 }
 
 async function getPostOwner(postData){
-    let getPostOwnerSQL = `
-        SELECT * 
-        FROM user
-        WHERE user_id = (?);
-    `
+     try {
+        const { data, error } = await database
+            .from('user')            // your table name
+            .select('*')             // select all columns
+            .eq('user_id', postData.user_id)
+            .single()                // expect exactly one row
 
-    let param = [postData.user_id];
+        if (error) {
+            console.error('Could not get Post owner details:', error)
+            return null
+        }
 
-    try{
-        let userInfo = await database.query(getPostOwnerSQL, param);
-        return userInfo[0][0];
-    }
-    catch(err){
-        console.log('Could not get Post owner details');
-        console.log(err);
+        return data
+    } catch (err) {
+        console.error('Unexpected error in getPostOwner:', err)
+        return null
     }
 }
 
 async function getAllImages(){
     
-    let getImagesSQL = `
-        SELECT image_id, url, public_id, hits, username
-        FROM images
-        JOIN user 
-        on user_id = frn_user_id
-        ORDER BY image_id ASC;
-    `
+    const { data: images, error} = await database
+        .from('images')
+        .select(`
+            image_id, url, public_id, date_created, hits, frn_user_id, frn_type_id
+        `)
+        .order('image_id', { ascending: false })
 
-    try {
-        let imagePosts = await database.query(getImagesSQL);
+        if (error) {
+            console.log("Error in getting all images");
+            console.log(error);
+            return [];
+        }
 
-        let images = imagePosts[0];
+    return images;
 
-        return images;
-    }
-    catch(err){
-        console.log("Error in getting images");
-        console.log(err);
-    }
 }
 
 
